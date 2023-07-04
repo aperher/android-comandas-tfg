@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Comandas</string>
+    <string name="section_tabs">Secciones</string>
+    <string name="orders">Comandas</string>
+    <string name="ready">Preparados</string>
+    <string name="records">Historial</string>
+    <string name="help">Ayuda</string>
+    <string name="suggestions">Sugerencias</string>
+    <string name="sections">Secciones</string>
+    <string name="settings">Configuración</string>
+</resources>
