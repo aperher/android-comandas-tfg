@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/tv_monogram_state"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/circle"
+        android:backgroundTint="?attr/colorSurfaceContainerHigh"
+        android:gravity="center"
+        android:text="1"
+        android:textAppearance="?attr/textAppearanceTitleMedium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_article_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Agua"
+        android:textAppearance="?attr/textAppearanceBodyLarge"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_monogram_state"
+        app:layout_constraintEnd_toStartOf="@+id/tv_article_price"
+        app:layout_constraintStart_toEndOf="@+id/tv_monogram_state"
+        app:layout_constraintTop_toTopOf="@+id/tv_monogram_state" />
+
+    <TextView
+        android:id="@+id/tv_extra_article_names"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:paddingBottom="10dp"
+        android:text="Extra 1\nExtra 2\nExtra 3"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toStartOf="@+id/tv_article_price"
+        app:layout_constraintStart_toStartOf="@+id/tv_article_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_article_name" />
+
+    <TextView
+        android:id="@+id/tv_extra_article_prices"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:gravity="end"
+        android:text="0,5 €\n1 €\n0,75 €"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnSurfaceVariant"
+        app:layout_constraintEnd_toEndOf="@+id/tv_article_price"
+        app:layout_constraintTop_toBottomOf="@+id/tv_article_price" />
+
+    <TextView
+        android:id="@+id/tv_article_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:text="3,75 €"
+        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_monogram_state"
+        app:layout_constraintEnd_toStartOf="@+id/btn_remove"
+        app:layout_constraintTop_toTopOf="@+id/tv_monogram_state" />
+
+    <Button
+        android:id="@+id/btn_remove"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="?attr/colorPrimaryContainer"
+        app:icon="@drawable/remove"
+        app:iconGravity="textStart"
+        app:iconTint="?attr/colorOnPrimaryContainer"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add"
+        app:layout_constraintTop_toTopOf="@+id/tv_monogram_state" />
+
+    <Button
+        android:id="@+id/btn_add"
+        style="?attr/materialIconButtonStyle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="?attr/colorPrimaryContainer"
+        app:icon="@drawable/add"
+        app:iconGravity="textStart"
+        app:iconTint="?attr/colorOnPrimaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_remove" />
+
+    <Space
+        android:id="@+id/space_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_monogram_state" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

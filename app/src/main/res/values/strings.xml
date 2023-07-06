@@ -8,4 +8,15 @@
     <string name="suggestions">Sugerencias</string>
     <string name="sections">Secciones</string>
     <string name="settings">Configuración</string>
+    <string name="suggestions_detail">¡Consulta los platos más populares y los paltos destacados del restaurante!</string>
+    <string name="category">Categorías</string>
+    <string name="menu">Menús</string>
+    <string name="observaciones">Observaciones</string>
+    <string name="will_sent_kitchen">Se envirá a cocina</string>
+    <string name="extras">Extras</string>
+    <string name="extended_fab_content_desc">Icono flotante para añadir articulo a la comanda</string>
+    <string name="add">Añadir</string>
+    <string name="share">Compartir</string>
+    <string name="print">Imprimir</string>
+    <string name="send">Enviar</string>
 </resources>

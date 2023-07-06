@@ -17,7 +17,8 @@
         <activity
             android:name=".ui.takeorder.TakeOrderActivity"
             android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.orders.OrdersActivity"/>
 
         <activity
             android:name=".ui.orders.OrdersActivity"

@@ -32,7 +32,6 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="?attr/colorSurface"
                     app:layout_scrollFlags="scroll|enterAlways"
-                    app:menu="@menu/top_app_bar"
                     app:navigationIcon="@drawable/menu"
                     app:navigationIconTint="?attr/colorOnSurface"
                     app:title="Comandas"
@@ -41,13 +40,13 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/navHostFragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:defaultNavHost="true"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                app:navGraph="@navigation/bottom_navigation"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-                tools:layout="@layout/fragment_tables"/>
+                app:navGraph="@navigation/bottom_nav"
+                tools:layout="@layout/fragment_tables" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView

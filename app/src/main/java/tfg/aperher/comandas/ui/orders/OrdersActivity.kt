@@ -19,6 +19,8 @@ class OrdersActivity : AppCompatActivity() {
         binding = ActivityOrdersBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+
         navController = binding.navHostFragment.getFragment<NavHostFragment>().navController
         binding.bottomNavigationView.setupWithNavController(navController)
 
