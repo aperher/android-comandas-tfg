@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="10dp">
@@ -12,7 +13,7 @@
         android:background="@drawable/circle"
         android:backgroundTint="?attr/colorSurfaceContainerHigh"
         android:gravity="center"
-        android:text="1"
+        tools:text="1"
         android:textAppearance="?attr/textAppearanceTitleMedium"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:text="Agua"
+        tools:text="Nombre"
         android:textAppearance="?attr/textAppearanceBodyLarge"
         app:layout_constraintBottom_toBottomOf="@+id/tv_monogram_state"
         app:layout_constraintEnd_toStartOf="@+id/tv_article_price"
@@ -37,7 +38,8 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="10dp"
         android:paddingBottom="10dp"
-        android:text="Extra 1\nExtra 2\nExtra 3"
+        android:visibility="gone"
+        tools:text="Extra 1\nExtra 2\nExtra 3"
         android:textAppearance="?attr/textAppearanceBodyMedium"
         android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintEnd_toStartOf="@+id/tv_article_price"
@@ -48,20 +50,20 @@
         android:id="@+id/tv_extra_article_prices"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
         android:gravity="end"
-        android:text="0,5 €\n1 €\n0,75 €"
+        android:visibility="gone"
+        tools:text="0,5 €\n1 €\n0,75 €"
         android:textAppearance="?attr/textAppearanceBodyMedium"
         android:textColor="?attr/colorOnSurfaceVariant"
         app:layout_constraintEnd_toEndOf="@+id/tv_article_price"
-        app:layout_constraintTop_toBottomOf="@+id/tv_article_price" />
+        app:layout_constraintTop_toTopOf="@+id/tv_extra_article_names" />
 
     <TextView
         android:id="@+id/tv_article_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:text="3,75 €"
+        tools:text="3,75 €"
         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
         app:layout_constraintBottom_toBottomOf="@+id/tv_monogram_state"
         app:layout_constraintEnd_toStartOf="@+id/btn_remove"

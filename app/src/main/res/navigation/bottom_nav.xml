@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_navigation"
-    app:startDestination="@id/tablesFragment">
+    app:startDestination="@id/sectionTabsFragment">
     <fragment
-        android:id="@+id/tablesFragment"
-        android:name="tfg.aperher.comandas.ui.tables.TablesFragment"
-        android:label="TablesFragment"
-        tools:layout="@layout/fragment_tables"/>
+        android:id="@+id/sectionTabsFragment"
+        android:name="tfg.aperher.comandas.presentation.orderstables.SectionTabsFragment"
+        android:label="@string/orders"
+        tools:layout="@layout/fragment_section_tabs"/>
 </navigation>

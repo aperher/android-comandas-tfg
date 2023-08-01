@@ -36,8 +36,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
+                    android:textAlignment="center"
                     android:justificationMode="inter_word"
-                    android:text="Blabla blabla blabla blabla bla bla bla blablaa aaaa aaaaaa aaa aaaaaa aaaaa blab lbala blabla blalalba albalb"
+                    tools:text="Blabla blabla blabla blabla bla bla bla blablaa aaaa aaaaaa aaa aaaaaa aaaaa blab lbala blabla blalalba albalb"
                     android:textAppearance="?attr/textAppearanceBodyMedium" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -49,7 +50,7 @@
                         android:id="@+id/tv_price_article"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="10 €"
+                        android:text="@string/price"
                         android:textAppearance="?attr/textAppearanceHeadlineLarge"
                         android:textColor="?attr/colorPrimary"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -74,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
-                        android:text="0"
+                        tools:text="0"
                         android:textAppearance="?attr/textAppearanceTitleLarge"
                         app:layout_constraintBottom_toBottomOf="@+id/btn_add_article"
                         app:layout_constraintEnd_toStartOf="@+id/btn_add_article"
@@ -95,7 +96,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tf_observations"
+                    android:id="@+id/et_observations"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"

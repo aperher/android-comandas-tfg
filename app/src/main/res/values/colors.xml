@@ -61,4 +61,8 @@
     <color name="md_theme_dark_surfaceTint">#9CCAFF</color>
     <color name="md_theme_dark_outlineVariant">#42474E</color>
     <color name="md_theme_dark_scrim">#000000</color>
+    <color name="orangeTableState">#E16C00</color>
+    <color name="greenTableState">#038E00</color>
+    <color name="orangeArticleState">#FFC691</color>
+    <color name="greenArticleState">#89C879</color>
 </resources>

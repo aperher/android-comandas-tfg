@@ -7,7 +7,45 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="tfg.aperher.comandas.ui.takeorder.menu.MenuFragment"
-        android:label="MenuFragment"
-        tools:layout="@layout/fragment_menu"/>
+        android:name="tfg.aperher.comandas.presentation.ordertake.menumain.MenuFragment"
+        android:label="@string/take_order"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_articlesFragment"
+            app:destination="@id/articlesFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/articlesFragment"
+        android:name="tfg.aperher.comandas.presentation.ordertake.articleslist.ArticlesFragment"
+        android:label="ArticlesFragment"
+        tools:layout="@layout/fragment_articles">
+        <action
+            android:id="@+id/action_articlesFragment_to_articleDetailsFragment"
+            app:destination="@id/articleDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument android:name="categoryId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleDetailsFragment"
+        android:name="tfg.aperher.comandas.presentation.ordertake.articledetails.ArticleDetailsFragment"
+        android:label="ArticleDetailsFragment"
+        tools:layout="@layout/fragment_article_details" >
+        <action
+            android:id="@+id/action_articleDetailsFragment_to_ordersActivity"
+            app:destination="@id/ordersActivity"
+            app:popUpTo="@id/ordersActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/ordersActivity"
+        android:name="tfg.aperher.comandas.presentation.OrdersActivity"
+        android:label="activity_orders"
+        tools:layout="@layout/activity_orders" />
 </navigation>

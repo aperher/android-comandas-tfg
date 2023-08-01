@@ -2,9 +2,10 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/take_order_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.takeorder.TakeOrderActivity">
+    tools:context=".presentation.ordertake.TakeOrderActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -25,8 +26,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="?attr/colorSurface"
-                app:menu="@menu/top_app_bar_take_order"
-                app:title="Tomar comanda" />
+                app:menu="@menu/top_app_bar_take_order" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/progressBarTakeOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:showAnimationBehavior="inward"
+                android:visibility="gone"
+                android:indeterminate="true" />
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.fragment.app.FragmentContainerView
@@ -35,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -42,7 +51,7 @@
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
             app:layout_constraintVertical_bias="1.0"
             app:navGraph="@navigation/take_order_nav"
-            tools:layout="@layout/fragment_menu"/>
+            tools:layout="@layout/fragment_menu" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/preview_bottom_sheet"
@@ -72,7 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="4 artículos"
+                android:text="@string/number_articles"
                 android:textAppearance="?attr/textAppearanceTitleLarge"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_up"
@@ -83,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="22,75 €"
+                android:text="@string/price"
                 android:textAppearance="?attr/textAppearanceTitleMedium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,7 +104,7 @@
         android:id="@+id/order_bottom_sheet"
         style="@style/Widget.Material3.BottomSheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:backgroundTint="?attr/colorSurfaceContainerLow"
         android:elevation="10dp"
         app:behavior_fitToContents="true"
@@ -118,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:text="Sección 1"
+            tools:text="Sección 1"
             android:textAppearance="?attr/textAppearanceTitleLarge"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -138,7 +147,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="45dp"
-            android:text="3"
+            tools:text="3"
             android:textAppearance="?attr/textAppearanceTitleMedium"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_section"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -147,9 +156,8 @@
             android:id="@+id/rv_order_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
+            android:paddingHorizontal="32dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

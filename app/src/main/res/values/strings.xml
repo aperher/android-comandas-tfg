@@ -19,4 +19,17 @@
     <string name="share">Compartir</string>
     <string name="print">Imprimir</string>
     <string name="send">Enviar</string>
+    <string name="take_order">Tomar comanda</string>
+    <string name="price">%1s €</string>
+    <string name="number_articles">%1s artículos</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="empty_order">Comanda vacía</string>
+    <string name="empty_order_msg">La comanda está vacía. Añade algún artículo antes de enviarla a cocina.</string>
+    <string name="same_order">No hay cambios</string>
+    <string name="same_order_msg">No se ha modificado la comanda. Por favor, modifica la comanda antes de enviarla a cocina.</string>
+    <string name="changes_not_saved">Hay cambios sin guardar</string>
+    <string name="changes_not_saved_msg">Se han realizado cambios en la comanda. ¿Desea enviarlos a cocina?</string>
+    <string name="sent_error">No se pudo enviar la comanda</string>
+    <string name="retry">Reintentar</string>
 </resources>
