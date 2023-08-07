@@ -4,5 +4,5 @@ import tfg.aperher.comandas.data.order.OrderRepository
 import javax.inject.Inject
 
 class GetOrderUseCase @Inject constructor(private val orderRepository: OrderRepository) {
-    suspend operator fun invoke(tableId: String) = orderRepository.getOrder(tableId)
+    suspend operator fun invoke(orderId: String) = orderRepository.getOrder(orderId)
 }

@@ -32,4 +32,24 @@
     <string name="changes_not_saved_msg">Se han realizado cambios en la comanda. ¿Desea enviarlos a cocina?</string>
     <string name="sent_error">No se pudo enviar la comanda</string>
     <string name="retry">Reintentar</string>
+    <string name="reorder">ORDENAR</string>
+    <string name="hide">OCULTAR</string>
+    <string name="waiter">Camarero</string>
+    <string name="results_title">RESULTADOS</string>
+    <string name="date">Fecha</string>
+    <string name="init_hour">Hora inicio: %1s</string>
+    <string name="show_date">Fecha: %1s</string>
+    <string name="section">Sección: %1s</string>
+    <string name="table">Mesa: %1s</string>
+    <string name="end_hour">Hora fin: %1s</string>
+    <string name="content_title">CONTENIDO</string>
+    <string name="price_title">PRECIO</string>
+    <string name="cost_title">IMPORTE</string>
+    <string name="ready_articles_title">ARTÍCULOS LISTOS PARA SERVIR</string>
+    <string name="show_section">Sección: %1s</string>
+    <string name="show_hour">Hora: %1s</string>
+    <string name="order_details">Detalles comanda</string>
+    <string name="record_order_title">Historial de comandas</string>
+    <string name="waiters">Camareros</string>
+    <string name="select_date">Seleccionar fecha</string>
 </resources>

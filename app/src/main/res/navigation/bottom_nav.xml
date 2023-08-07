@@ -6,7 +6,31 @@
     app:startDestination="@id/sectionTabsFragment">
     <fragment
         android:id="@+id/sectionTabsFragment"
-        android:name="tfg.aperher.comandas.presentation.orderstables.SectionTabsFragment"
+        android:name="tfg.aperher.comandas.presentation.orders.currentorders.SectionTabsFragment"
         android:label="@string/orders"
-        tools:layout="@layout/fragment_section_tabs"/>
+        tools:layout="@layout/fragment_section_tabs">
+        <action
+            android:id="@+id/action_sectionTabsFragment_to_takeOrderActivity"
+            app:destination="@id/takeOrderActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/takeOrderActivity"
+        android:name="tfg.aperher.comandas.presentation.takeorder.TakeOrderActivity"
+        android:label="@string/take_order"
+        tools:layout="@layout/activity_take_order" >
+        <argument
+            android:name="sectionName"
+            app:argType="string" />
+        <argument
+            android:name="table"
+            app:argType="tfg.aperher.comandas.domain.model.Table" />
+    </activity>
+    <fragment
+        android:id="@+id/recordOrdersFragment"
+        android:name="tfg.aperher.comandas.presentation.orders.recordsorders.RecordOrdersFragment"
+        tools:layout="@layout/fragment_records_orders"/>
+    <fragment
+        android:id="@+id/readyOrdersFragment"
+        android:name="tfg.aperher.comandas.presentation.orders.readyorders.ReadyOrdersFragment"
+        tools:layout="@layout/fragment_ready_orders" />
 </navigation>

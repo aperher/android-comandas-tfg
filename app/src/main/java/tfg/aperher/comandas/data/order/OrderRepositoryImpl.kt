@@ -9,12 +9,14 @@ import tfg.aperher.comandas.domain.model.Order
 import javax.inject.Inject
 
 class OrderRepositoryImpl @Inject constructor(private val orderDataSource: OrderDataSource) : OrderRepository {
-    override suspend fun getAllOrders(): Result<List<Order>> {
-        TODO("Not yet implemented")
+    override suspend fun getAllOrders(): Result<List<Order>> = withContext(Dispatchers.IO) {
+        orderDataSource.getAllOrders().toResult { it.map { order -> order.toDomain() } }
     }
 
-    override suspend fun getOrder(tableId: String): Result<Order> =
-        orderDataSource.getOrder(tableId).toResult { it.toDomain() }
+
+    override suspend fun getOrder(orderId: String): Result<Order> = withContext(Dispatchers.IO) {
+        orderDataSource.getOrder(orderId).toResult { it.toDomain() }
+    }
 
     override suspend fun createOrder(order: Order): Result<Unit> = withContext(Dispatchers.IO) {
         orderDataSource.createOrder(order.toDto()).toResult { }

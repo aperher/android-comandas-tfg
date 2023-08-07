@@ -5,7 +5,8 @@
     android:id="@+id/take_order_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ordertake.TakeOrderActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".presentation.takeorder.TakeOrderActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -162,7 +163,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_table_number"
-            tools:listitem="@layout/item_article_order" />
+            tools:listitem="@layout/item_article_take_order" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

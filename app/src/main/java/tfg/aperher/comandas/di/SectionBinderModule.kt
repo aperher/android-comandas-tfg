@@ -5,10 +5,10 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
-import tfg.aperher.comandas.data.sections.SectionDataSource
-import tfg.aperher.comandas.data.sections.SectionDataSourceImpl
-import tfg.aperher.comandas.data.sections.SectionRepository
-import tfg.aperher.comandas.data.sections.SectionRepositoryImpl
+import tfg.aperher.comandas.data.section.SectionDataSource
+import tfg.aperher.comandas.data.section.SectionDataSourceImpl
+import tfg.aperher.comandas.data.section.SectionRepository
+import tfg.aperher.comandas.data.section.SectionRepositoryImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)

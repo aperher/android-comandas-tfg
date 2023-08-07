@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/sectionsFragment"
+        android:id="@+id/sectionTabsFragment"
         android:contentDescription="@string/orders"
         android:icon="@drawable/order"
         android:title="@string/orders" />
@@ -11,7 +11,7 @@
         android:icon="@drawable/ready"
         android:title="@string/ready" />
     <item
-        android:id="@+id/ordersRecordFragment"
+        android:id="@+id/recordOrdersFragment"
         android:contentDescription="@string/records"
         android:icon="@drawable/recorded"
         android:title="@string/records" />

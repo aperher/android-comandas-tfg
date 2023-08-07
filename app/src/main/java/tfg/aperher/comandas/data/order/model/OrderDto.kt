@@ -5,7 +5,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class OrderDto(
     val id: String?,
-    val table: String? = null,
-    val dateTime: String? = null,
-    val articles: List<ArticleInOrderDto> = emptyList(),
+    val table: Int? = null,
+    val section: String? = null,
+    val init_time: String? = null,
+    val end_time: String? = null,
+    val articles: List<ArticleInOrderDto>? = null,
 )

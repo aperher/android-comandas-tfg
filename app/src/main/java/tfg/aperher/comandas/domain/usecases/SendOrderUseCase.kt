@@ -2,7 +2,7 @@ package tfg.aperher.comandas.domain.usecases
 
 import tfg.aperher.comandas.data.order.OrderRepository
 import tfg.aperher.comandas.domain.model.Order
-import tfg.aperher.comandas.domain.util.OrderError
+import tfg.aperher.comandas.domain.utils.OrderError
 import javax.inject.Inject
 
 class SendOrderUseCase @Inject constructor(
@@ -11,7 +11,7 @@ class SendOrderUseCase @Inject constructor(
     suspend operator fun invoke(initialOrder: Order, orderToSend: Order): Result<Unit> {
         return when {
             orderToSend.isEmpty() -> Result.failure(OrderError.EmptyOrderError)
-            orderToSend.areItemsSame(initialOrder) -> Result.failure(OrderError.SameOrderError)
+            initialOrder.articles == orderToSend.articles -> Result.failure(OrderError.SameOrderError)
             else -> {
                 val isNewOrder = orderToSend.id == null
                 val result = if (isNewOrder) {

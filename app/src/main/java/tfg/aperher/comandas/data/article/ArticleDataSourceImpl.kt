@@ -7,8 +7,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import tfg.aperher.comandas.domain.model.Article
 import javax.inject.Inject
+import javax.inject.Named
 
-class ArticleDataSourceImpl @Inject constructor(retrofit: Retrofit) : ArticleDataSource {
+class ArticleDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: Retrofit) : ArticleDataSource {
     private val retrofitArticleService = retrofit.create(ArticleRetrofit::class.java)
 
     override suspend fun getArticles(categoryId: String): Response<List<Article>> =

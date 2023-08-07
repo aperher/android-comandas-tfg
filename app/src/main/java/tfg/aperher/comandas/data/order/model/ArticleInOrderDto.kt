@@ -9,6 +9,6 @@ data class ArticleInOrderDto(
     val articleId: String,
     val name: String? = null,
     val price: Double? = null,
-    val extras: List<IngredientDto>? = null,
-    val state: String
+    val state: String,
+    val extras: List<IngredientDto>? = null
 )

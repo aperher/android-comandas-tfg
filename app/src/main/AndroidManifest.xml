@@ -18,13 +18,13 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".presentation.ordertake.TakeOrderActivity"
+            android:name=".presentation.takeorder.TakeOrderActivity"
             android:screenOrientation="portrait"
             android:exported="false"
-            android:parentActivityName=".presentation.OrdersActivity"/>
+            android:parentActivityName=".presentation.MainActivity"/>
 
         <activity
-            android:name=".presentation.OrdersActivity"
+            android:name=".presentation.MainActivity"
             android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
