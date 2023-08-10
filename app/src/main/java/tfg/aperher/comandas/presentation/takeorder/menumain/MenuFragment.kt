@@ -30,12 +30,20 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private fun initUI() {
         initRecyclerAdapter()
+        initListeners()
         initObservers()
     }
 
     private fun initRecyclerAdapter() {
         binding.rvCategories.adapter = CategoryAdapter { id, name ->
             goToArticlesList(id, name)
+        }
+    }
+
+    private fun initListeners() {
+        binding.cardSuggestions.setOnClickListener {
+            //val action = MenuFragmentDirections.actionMenuFragmentToSuggestionsFragment()
+            findNavController().navigate(R.id.action_menuFragment_to_suggestionsFragment)
         }
     }
 

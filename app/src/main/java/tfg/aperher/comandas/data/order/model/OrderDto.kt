@@ -6,6 +6,7 @@ import com.squareup.moshi.JsonClass
 data class OrderDto(
     val id: String?,
     val table: Int? = null,
+    val tableId: String? = null,
     val section: String? = null,
     val init_time: String? = null,
     val end_time: String? = null,

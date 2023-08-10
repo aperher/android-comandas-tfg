@@ -10,6 +10,7 @@ suspend fun Order.toDto() = withContext(Dispatchers.Default) {
     OrderDto(
         id = id,
         table = table,
+        tableId = tableId,
         articles = articles.map { it.id.map { id -> it.toDto().copy(id = id) } }.flatten()
     )
 }

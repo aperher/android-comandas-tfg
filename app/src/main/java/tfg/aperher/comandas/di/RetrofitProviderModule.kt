@@ -17,7 +17,7 @@ class RetrofitProviderModule {
     @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:8080/v1/")
+            .baseUrl("http://192.168.1.141:8080/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
@@ -27,7 +27,7 @@ class RetrofitProviderModule {
     @Singleton
     fun provideRetrofitSSE(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://10.0.2.2:5000/v1/")
+            .baseUrl("http://192.168.1.141:5000/v1/")
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }

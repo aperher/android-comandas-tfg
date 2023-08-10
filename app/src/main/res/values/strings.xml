@@ -8,7 +8,7 @@
     <string name="suggestions">Sugerencias</string>
     <string name="sections">Secciones</string>
     <string name="settings">Configuración</string>
-    <string name="suggestions_detail">¡Consulta los platos más populares y los paltos destacados del restaurante!</string>
+    <string name="suggestions_detail">¡Consulta los platos más populares y los platos destacados del restaurante!</string>
     <string name="category">Categorías</string>
     <string name="menu">Menús</string>
     <string name="observaciones">Observaciones</string>
@@ -52,4 +52,10 @@
     <string name="record_order_title">Historial de comandas</string>
     <string name="waiters">Camareros</string>
     <string name="select_date">Seleccionar fecha</string>
+    <string name="deselect">Deseleccionar</string>
+    <string name="no_results_found">No hay resultados.</string>
+    <string name="problem_ocurred">Hubo un problema.</string>
+    <string name="try_later">Reintentelo más tarde.</string>
+    <string name="most_ordered_articles">Platos más pedidos</string>
+    <string name="prominent_dishes">Platos destacados</string>
 </resources>

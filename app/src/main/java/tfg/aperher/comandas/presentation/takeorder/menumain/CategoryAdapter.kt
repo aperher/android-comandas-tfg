@@ -38,7 +38,7 @@ class CategoryAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener {
+            itemView.setOnClickListener {
                 val category = getItem(adapterPosition)
                 onClick(category.id, category.name)
             }

@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.ActivityTakeOrderBinding
 import tfg.aperher.comandas.domain.model.ArticleInOrder
-import tfg.aperher.comandas.domain.utils.OrderError
+import tfg.aperher.comandas.domain.usecases.OrderError
 import tfg.aperher.comandas.presentation.takeorder.articledetails.ArticleDetailsFragment.ArticleAddedListener
 
 @AndroidEntryPoint
@@ -124,7 +124,7 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
         }
 
         viewState.progressBarLoading.let {
-            binding.progressBarTakeOrder.visibility = if (it) View.VISIBLE else View.GONE
+            binding.progressBar.visibility = if (it) View.VISIBLE else View.GONE
         }
     }
 

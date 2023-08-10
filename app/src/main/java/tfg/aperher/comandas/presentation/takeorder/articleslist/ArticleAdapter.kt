@@ -39,7 +39,7 @@ class ArticleAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener {
+            itemView.setOnClickListener {
                 onClick(getItem(adapterPosition))
             }
         }

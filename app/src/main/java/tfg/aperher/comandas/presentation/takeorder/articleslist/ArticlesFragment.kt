@@ -56,7 +56,7 @@ class ArticlesFragment : Fragment(R.layout.fragment_articles_list) {
     private fun goToArticleDetail(article: Article) {
         val action = ArticlesFragmentDirections.actionArticlesFragmentToArticleDetailsFragment(
             article,
-            article.name
+            article.name // This argument is to show title article name in the toolbar
         )
         findNavController().navigate(action)
     }

@@ -1,13 +1,12 @@
 package tfg.aperher.comandas.data.section
 
-import okhttp3.MediaType
-import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import tfg.aperher.comandas.data.section.model.SectionDto
+import tfg.aperher.comandas.data.utils.response.safeApiCall
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -17,32 +16,12 @@ class SectionDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit:
 
     private val retrofitSectionService = retrofit.create(SectionRetrofit::class.java)
 
-    override suspend fun getSections(): Response<List<SectionDto>> {
-        return try {
-            retrofitSectionService.getSections(ESTABLISHMENT_ID)
-        } catch (e: Exception) {
-            Response.error(
-                400,
-                ResponseBody.create(
-                    MediaType.parse("text/plain"),
-                    e.toString()
-                )
-            )
-        }
+    override suspend fun getSections(): Response<List<SectionDto>> = safeApiCall {
+        retrofitSectionService.getSections(ESTABLISHMENT_ID)
     }
 
-    override suspend fun getSectionById(id: String): Response<SectionDto> {
-        return try {
-            retrofitSectionService.getSectionById(id)
-        } catch (e: Exception) {
-            Response.error(
-                400,
-                ResponseBody.create(
-                    MediaType.parse("text/plain"),
-                    e.toString()
-                )
-            )
-        }
+    override suspend fun getSectionById(id: String): Response<SectionDto> = safeApiCall {
+        retrofitSectionService.getSectionById(id)
     }
 
     interface SectionRetrofit {

@@ -1,8 +1,0 @@
-package tfg.aperher.comandas.domain.utils
-
-sealed class OrderError : Exception() {
-    object EmptyOrderError : OrderError()
-    object OrderNotSavedError : OrderError()
-    object SameOrderError : OrderError()
-    object SendOrderError : OrderError()
-}

@@ -1,7 +1,7 @@
 package tfg.aperher.comandas.data.user
 
 import tfg.aperher.comandas.data.user.model.toDomain
-import tfg.aperher.comandas.data.utils.toResult
+import tfg.aperher.comandas.data.utils.response.toResult
 import tfg.aperher.comandas.domain.model.User
 import javax.inject.Inject
 

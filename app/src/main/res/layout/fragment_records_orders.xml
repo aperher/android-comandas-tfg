@@ -6,66 +6,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_waiter"
-                style="@style/Widget.Material3.Chip.Assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/waiter"
-                app:checkedIconVisible="false"
-                app:closeIcon="@drawable/arrow_drop"
-                app:closeIconTint="?attr/colorOnSurface"
-                app:closeIconVisible="true"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_date"
-                style="@style/Widget.Material3.Chip.Assist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="@string/date"
-                app:checkedIconVisible="false"
-                app:closeIcon="@drawable/arrow_drop"
-                app:closeIconTint="?attr/colorOnSurface"
-                app:closeIconVisible="true"
-                app:layout_constraintStart_toEndOf="@+id/chip_waiter"
-                app:layout_constraintTop_toTopOf="@+id/chip_waiter" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/results_title"
-                android:textAppearance="?attr/textAppearanceLabelMedium"
-                app:layout_constraintStart_toStartOf="@+id/chip_waiter"
-                app:layout_constraintTop_toBottomOf="@+id/chip_waiter" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_waiter"
+                    style="@style/Widget.Material3.Chip.Assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/waiter"
+                    app:checkedIconVisible="false"
+                    app:closeIcon="@drawable/arrow_drop"
+                    app:closeIconTint="?attr/colorOnSurface"
+                    app:closeIconVisible="true"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_records_orders"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:overScrollMode="never"
-                android:paddingHorizontal="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chip_waiter"
-                tools:itemCount="5"
-                tools:listitem="@layout/item_order" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_date"
+                    style="@style/Widget.Material3.Chip.Assist"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/date"
+                    app:checkedIconVisible="false"
+                    app:closeIcon="@drawable/arrow_drop"
+                    app:closeIconTint="?attr/colorOnSurface"
+                    app:closeIconVisible="true"
+                    app:layout_constraintStart_toEndOf="@+id/chip_waiter"
+                    app:layout_constraintTop_toTopOf="@+id/chip_waiter" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/results_title"
+                    android:textAppearance="?attr/textAppearanceLabelMedium"
+                    app:layout_constraintStart_toStartOf="@+id/chip_waiter"
+                    app:layout_constraintTop_toBottomOf="@+id/chip_waiter" />
+
+                <include
+                    android:id="@+id/no_data"
+                    layout="@layout/view_no_results_found"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+                <include
+                    android:id="@+id/error"
+                    layout="@layout/view_error"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="90dp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/no_data" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_records_orders"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:overScrollMode="never"
+                    android:paddingHorizontal="8dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/error"
+                    tools:itemCount="5"
+                    tools:listitem="@layout/item_order" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -4,7 +4,7 @@ package tfg.aperher.comandas.data.section
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tfg.aperher.comandas.data.section.model.toDomain
-import tfg.aperher.comandas.data.utils.toResult
+import tfg.aperher.comandas.data.utils.response.toResult
 import tfg.aperher.comandas.domain.model.Section
 import javax.inject.Inject
 

@@ -30,7 +30,7 @@
                 app:menu="@menu/top_app_bar_take_order" />
 
             <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/progressBarTakeOrder"
+                android:id="@+id/progressBar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:showAnimationBehavior="inward"

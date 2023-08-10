@@ -16,8 +16,8 @@ import tfg.aperher.comandas.domain.usecases.GetOrderUseCase
 import tfg.aperher.comandas.domain.model.ArticleInOrder
 import tfg.aperher.comandas.domain.model.Order
 import tfg.aperher.comandas.domain.model.Table
+import tfg.aperher.comandas.domain.usecases.OrderError
 import tfg.aperher.comandas.domain.usecases.SendOrderUseCase
-import tfg.aperher.comandas.domain.utils.OrderError
 import tfg.aperher.comandas.utils.Event
 import javax.inject.Inject
 
@@ -52,7 +52,7 @@ class TakeOrderViewModel @Inject constructor(
     val navigateToOrderActivity: LiveData<Event<Boolean>> get() = _navigateToOrderActivity
 
     fun initOrder(sectionName: String, table: Table) {
-        initialOrder = Order(table = table.number, section = sectionName)
+        initialOrder = Order(tableId = table.id, section = sectionName)
         _viewState.value = TakeOrderViewState(
             sectionName = sectionName,
             tableNumber = table.number

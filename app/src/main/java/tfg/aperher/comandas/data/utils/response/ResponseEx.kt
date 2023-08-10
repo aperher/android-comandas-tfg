@@ -1,4 +1,4 @@
-package tfg.aperher.comandas.data.utils
+package tfg.aperher.comandas.data.utils.response
 
 import retrofit2.Response
 import java.io.IOException

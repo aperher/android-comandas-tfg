@@ -5,13 +5,24 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.Navigation
+import com.google.android.material.chip.Chip
+import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.MaterialDatePicker
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.FragmentRecordsOrdersBinding
 import tfg.aperher.comandas.domain.model.User
 import tfg.aperher.comandas.presentation.orders.OrdersFragmentDirections
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @AndroidEntryPoint
 class RecordOrdersFragment : Fragment(R.layout.fragment_records_orders) {
@@ -60,16 +71,7 @@ class RecordOrdersFragment : Fragment(R.layout.fragment_records_orders) {
         }
 
         binding.chipDate.setOnClickListener {
-            MaterialDatePicker.Builder.datePicker()
-                .setTitleText(getString(R.string.select_date))
-                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .build()
-                .apply {
-                    addOnPositiveButtonClickListener { date ->
-                        viewModel.onDateSelected(date)
-                    }
-                }
-                .show(requireActivity().supportFragmentManager, "datePicker")
+            openDatePicker()
         }
     }
 
@@ -78,28 +80,32 @@ class RecordOrdersFragment : Fragment(R.layout.fragment_records_orders) {
             (binding.rvRecordsOrders.adapter as OrdersAdapter).submitList(orders)
         }
 
-        viewModel.isRefreshing.observe(viewLifecycleOwner) { isRefreshing ->
-            binding.swipeRefreshLayout.isRefreshing = isRefreshing
+        viewModel.noOrdersFound.observe(viewLifecycleOwner) { noOrdersFound ->
+            binding.noData.root.visibility = if (noOrdersFound) View.VISIBLE else View.GONE
         }
 
-        viewModel.filterWaiter.observe(viewLifecycleOwner) { waiter ->
-            val isOneSelected = waiter != null
-            binding.chipWaiter.apply {
-                text = waiter?.name ?: getString(R.string.waiter)
-                isCheckable = isOneSelected
-                isChecked = isOneSelected
-                isCheckable = false
-            }
+        viewModel.isError.observe(viewLifecycleOwner) { isError ->
+            binding.error.root.visibility = if (isError) View.VISIBLE else View.GONE
         }
 
-        viewModel.filterDate.observe(viewLifecycleOwner) { date ->
-            val isOneSelected = date != null
-            binding.chipDate.apply {
-                text = date ?: getString(R.string.date)
-                isCheckable = isOneSelected
-                isChecked = isOneSelected
-                isCheckable = false
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.viewState.collect { viewState ->
+                    updateUI(viewState)
+                }
             }
+        }
+    }
+
+    private fun updateUI(viewState: RecordOrdersViewState) {
+        viewState.apply {
+            binding.swipeRefreshLayout.isRefreshing = isPullToRefresh
+            binding.progressBar.visibility = if (isProgressLoading) View.VISIBLE else View.INVISIBLE
+
+            val textWaiter = waiter?.name ?: getString(R.string.waiter)
+            initChipBehaviour(binding.chipWaiter, textWaiter, waiter != null)
+            val textDate = dateMillis?.let { formatUTCMillisToDate(it) } ?: getString(R.string.date)
+            initChipBehaviour(binding.chipDate, textDate, dateMillis != null)
         }
     }
 
@@ -118,5 +124,39 @@ class RecordOrdersFragment : Fragment(R.layout.fragment_records_orders) {
             }
         )
         bottomSheetFragment.show(requireActivity().supportFragmentManager, bottomSheetFragment.tag)
+    }
+
+    private fun openDatePicker() {
+        MaterialDatePicker.Builder.datePicker()
+            .setTitleText(getString(R.string.select_date))
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .setCalendarConstraints(
+                CalendarConstraints.Builder().setEnd(MaterialDatePicker.todayInUtcMilliseconds())
+                    .build()
+            )
+            .setNegativeButtonText(getString(R.string.deselect))
+            .build()
+            .apply {
+                addOnPositiveButtonClickListener { date -> viewModel.onDateSelected(date) }
+                addOnNegativeButtonClickListener { viewModel.onDateSelected(null) }
+            }
+            .show(requireActivity().supportFragmentManager, "datePicker")
+    }
+
+    private fun formatUTCMillisToDate(date: Long): String {
+        val instant = Instant.ofEpochMilli(date)
+        val dateTime = LocalDateTime.ofInstant(instant, ZoneOffset.UTC)
+        val locale: Locale = resources.configuration.locales[0]
+        val formatter = DateTimeFormatter.ofPattern("d 'de' MMMM 'de' yyyy", locale)
+        return formatter.format(dateTime)
+    }
+
+    private fun initChipBehaviour(chip: Chip, filter: String, isChecked: Boolean) {
+        chip.apply {
+            text = filter
+            isCheckable = true
+            this.isChecked = isChecked
+            isCheckable = false
+        }
     }
 }

@@ -6,6 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import tfg.aperher.comandas.data.section.ESTABLISHMENT_ID
 import tfg.aperher.comandas.data.user.model.UserDto
+import tfg.aperher.comandas.data.utils.response.safeApiCall
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -13,8 +14,9 @@ class UserDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: Re
     UserDataSource {
     private val userRetrofit = retrofit.create(UserRetrofit::class.java)
 
-    override suspend fun getEstablishmentWaiters(): Response<List<UserDto>> =
+    override suspend fun getEstablishmentWaiters(): Response<List<UserDto>> = safeApiCall {
         userRetrofit.getEstablishmentWaiters(ESTABLISHMENT_ID)
+    }
 
     interface UserRetrofit {
         @GET("users/waiters")

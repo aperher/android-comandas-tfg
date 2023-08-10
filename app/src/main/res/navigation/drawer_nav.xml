@@ -27,4 +27,9 @@
             android:name="orderId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/suggestionsFragment"
+        android:name="tfg.aperher.comandas.presentation.suggestions.SuggestionsFragment"
+        android:label="@string/suggestions"
+        tools:layout="@layout/fragment_suggestions"/>
 </navigation>
