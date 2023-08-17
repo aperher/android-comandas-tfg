@@ -1,6 +1,5 @@
 package tfg.aperher.comandas.data.order
 
-import android.util.Log
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.http.Body
@@ -26,18 +25,20 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
         orderRetrofit.getAllOrders(ESTABLISHMENT_ID, userId, date)
     }
 
-
     override suspend fun getOrder(orderId: String): Response<OrderDto> = safeApiCall {
         orderRetrofit.getOrder(orderId)
     }
 
     override suspend fun createOrder(order: OrderDto): Response<Unit> = safeApiCall {
-        Log.d("OrderDataSourceImpl", "createOrder: $order")
         orderRetrofit.createOrder(order)
     }
 
     override suspend fun updateOrder(article: OrderDto): Response<Unit> = safeApiCall {
         orderRetrofit.updateArticleOrder(article)
+    }
+
+    override suspend fun setArticleServed(articleOrderId: String): Response<Unit> = safeApiCall {
+        orderRetrofit.setArticleServed(articleOrderId)
     }
 
     interface OrderRetrofit {
@@ -57,5 +58,8 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
 
         @PUT("orders")
         suspend fun updateArticleOrder(@Body article: OrderDto): Response<Unit>
+
+        @PUT("orders/servearticle/{articleOrderId}")
+        suspend fun setArticleServed(@Path("articleOrderId") articleOrderId: String): Response<Unit>
     }
 }

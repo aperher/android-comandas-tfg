@@ -3,7 +3,7 @@ package tfg.aperher.comandas.data.ingredient.model
 import tfg.aperher.comandas.domain.model.Ingredient
 
 fun IngredientDto.toDomain() = Ingredient(
-    id = id,
+    id = id ?: "",
     name = name ?: "",
     price = price ?: 0.0
 )

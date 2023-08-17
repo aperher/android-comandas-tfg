@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.ActivityTakeOrderBinding
 import tfg.aperher.comandas.domain.model.ArticleInOrder
-import tfg.aperher.comandas.domain.usecases.OrderError
+import tfg.aperher.comandas.domain.util.OrderErrorException
 import tfg.aperher.comandas.presentation.takeorder.articledetails.ArticleDetailsFragment.ArticleAddedListener
 
 @AndroidEntryPoint
@@ -128,26 +128,26 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
         }
     }
 
-    private fun informError(error: OrderError) {
+    private fun informError(error: OrderErrorException) {
         when (error) {
-            OrderError.EmptyOrderError -> MaterialAlertDialogBuilder(this)
+            OrderErrorException.EmptyOrderError -> MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.empty_order))
                 .setMessage(getString(R.string.empty_order_msg))
                 .setPositiveButton(R.string.accept) { _, _ -> }.show()
 
-            OrderError.OrderNotSavedError -> MaterialAlertDialogBuilder(this)
+            OrderErrorException.OrderNotSavedError -> MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.changes_not_saved))
                 .setMessage(getString(R.string.changes_not_saved_msg))
                 .setPositiveButton(getString(R.string.send)) { _, _ -> viewModel.sendOrder() }
                 .setNegativeButton(R.string.cancel) { _, _ -> finish() }
                 .show()
 
-            OrderError.SameOrderError -> MaterialAlertDialogBuilder(this)
+            OrderErrorException.SameOrderError -> MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.same_order))
                 .setMessage(getString(R.string.same_order_msg))
                 .setPositiveButton(R.string.accept) { _, _ -> }.show()
 
-            OrderError.SendOrderError -> {
+            OrderErrorException.SendOrderError -> {
                 viewModel.showBottomSheet(false)
                 Snackbar.make(
                     binding.orderBottomSheet,

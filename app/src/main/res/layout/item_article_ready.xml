@@ -31,7 +31,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:paddingBottom="20dp"
         android:textAppearance="?attr/textAppearanceBodyMedium"
         android:textColor="?attr/colorOnSurfaceVariant"
         android:visibility="gone"
@@ -41,6 +40,7 @@
         tools:text="Extra 1, Extra 2, Extra 3" />
 
     <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/appCompatImageView5"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
@@ -55,17 +55,17 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:textAppearance="?attr/textAppearanceBodyLarge"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_article_name"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_extra_article_names"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_section"
         tools:text="1" />
 
     <Space
         android:id="@+id/space_bottom"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="24dp"
-        app:layout_constraintTop_toBottomOf="@+id/tv_article_name"
-        tools:layout_editor_absoluteX="17dp" />
+        app:layout_constraintEnd_toStartOf="@+id/appCompatImageView5"
+        app:layout_constraintTop_toBottomOf="@+id/tv_extra_article_names" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider2"

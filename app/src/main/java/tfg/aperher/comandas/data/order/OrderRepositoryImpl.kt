@@ -19,7 +19,6 @@ class OrderRepositoryImpl @Inject constructor(private val orderDataSource: Order
             orderDataSource.getAllOrders(waiterId, dateTimeStampTz).toResult { it.map { order -> order.toDomain() } }
         }
 
-
     override suspend fun getOrder(orderId: String): Result<Order> = withContext(Dispatchers.IO) {
         orderDataSource.getOrder(orderId).toResult { it.toDomain() }
     }
@@ -30,6 +29,10 @@ class OrderRepositoryImpl @Inject constructor(private val orderDataSource: Order
 
     override suspend fun updateOrder(order: Order): Result<Unit> = withContext(Dispatchers.IO) {
         orderDataSource.updateOrder(order.toDto()).toResult { }
+    }
+
+    override suspend fun setArticleServed(articleOrderId: String): Result<Unit> = withContext(Dispatchers.IO) {
+        orderDataSource.setArticleServed(articleOrderId).toResult { }
     }
 
     private fun millisToDate(millis: Long): String {

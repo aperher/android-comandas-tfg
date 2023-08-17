@@ -16,8 +16,8 @@ import tfg.aperher.comandas.domain.usecases.GetOrderUseCase
 import tfg.aperher.comandas.domain.model.ArticleInOrder
 import tfg.aperher.comandas.domain.model.Order
 import tfg.aperher.comandas.domain.model.Table
-import tfg.aperher.comandas.domain.usecases.OrderError
 import tfg.aperher.comandas.domain.usecases.SendOrderUseCase
+import tfg.aperher.comandas.domain.util.OrderErrorException
 import tfg.aperher.comandas.utils.Event
 import javax.inject.Inject
 
@@ -45,8 +45,8 @@ class TakeOrderViewModel @Inject constructor(
     private val currentViewState get() = _viewState.value
     val viewState: StateFlow<TakeOrderViewState> get() = _viewState
 
-    private val _orderError = MutableLiveData<Event<OrderError>>()
-    val orderError: LiveData<Event<OrderError>> get() = _orderError
+    private val _orderError = MutableLiveData<Event<OrderErrorException>>()
+    val orderError: LiveData<Event<OrderErrorException>> get() = _orderError
 
     private val _navigateToOrderActivity = MutableLiveData<Event<Boolean>>()
     val navigateToOrderActivity: LiveData<Event<Boolean>> get() = _navigateToOrderActivity
@@ -90,7 +90,7 @@ class TakeOrderViewModel @Inject constructor(
             val result = sendOrderUseCase(initialOrder, currentOrder)
             result.fold(
                 onSuccess = { _navigateToOrderActivity.value = Event(true) },
-                onFailure = { _orderError.value = Event(it as OrderError) }
+                onFailure = { _orderError.value = Event(it as OrderErrorException) }
             )
 
             _viewState.value = currentViewState.copy(progressBarLoading = false)
@@ -104,7 +104,7 @@ class TakeOrderViewModel @Inject constructor(
     fun checkOrderSaved() {
         val isSaved = initialOrder.articles == _articlesInOrder.value!!
         if (isSaved) _navigateToOrderActivity.value = Event(true)
-        else _orderError.value = Event(OrderError.OrderNotSavedError)
+        else _orderError.value = Event(OrderErrorException.OrderNotSavedError)
     }
 
     private fun getActiveOrder(orderId: String) {

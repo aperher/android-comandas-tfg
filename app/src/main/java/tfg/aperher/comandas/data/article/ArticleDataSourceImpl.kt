@@ -6,12 +6,14 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import tfg.aperher.comandas.data.article.model.ArticleDto
+import tfg.aperher.comandas.data.realtime.model.ArticleUpdatedDto
 import tfg.aperher.comandas.data.section.ESTABLISHMENT_ID
 import tfg.aperher.comandas.data.utils.response.safeApiCall
 import javax.inject.Inject
 import javax.inject.Named
 
-class ArticleDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: Retrofit) : ArticleDataSource {
+class ArticleDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: Retrofit) :
+    ArticleDataSource {
     private val retrofitArticleService = retrofit.create(ArticleRetrofit::class.java)
 
     override suspend fun getArticles(categoryId: String): Response<List<ArticleDto>> = safeApiCall {
@@ -30,6 +32,16 @@ class ArticleDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit:
         retrofitArticleService.getArticleDetails(articleId)
     }
 
+    override suspend fun getReadyArticle(articleOrderId: String): Response<ArticleUpdatedDto> =
+        safeApiCall {
+            retrofitArticleService.getReadyArticle(articleOrderId)
+        }
+
+
+    override suspend fun getReadyArticles(): Response<List<ArticleUpdatedDto>> = safeApiCall {
+        retrofitArticleService.getReadyArticles(ESTABLISHMENT_ID)
+    }
+
     interface ArticleRetrofit {
         @GET("articles")
         suspend fun getArticles(@Query("category") category: String): Response<List<ArticleDto>>
@@ -42,5 +54,11 @@ class ArticleDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit:
 
         @GET("articles/{id}")
         suspend fun getArticleDetails(@Path("id") articleId: String): Response<ArticleDto>
+
+        @GET("articles/ready/{id}")
+        suspend fun getReadyArticle(@Path("id") articleOrderId: String): Response<ArticleUpdatedDto>
+
+        @GET("articles/ready/establishment/{id}")
+        suspend fun getReadyArticles(@Path("id") establishmentId: String): Response<List<ArticleUpdatedDto>>
     }
 }

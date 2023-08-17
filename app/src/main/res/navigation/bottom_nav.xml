@@ -31,6 +31,6 @@
         tools:layout="@layout/fragment_records_orders"/>
     <fragment
         android:id="@+id/readyOrdersFragment"
-        android:name="tfg.aperher.comandas.presentation.orders.readyorders.ReadyOrdersFragment"
-        tools:layout="@layout/fragment_ready_orders" />
+        android:name="tfg.aperher.comandas.presentation.orders.readyarticles.ReadyArticlesFragment"
+        tools:layout="@layout/fragment_ready_articles" />
 </navigation>

@@ -32,7 +32,7 @@ class OrderAdapter(private val changeAmount: (Int, Int) -> Unit) :
             binding.btnRemove.setOnClickListener {
                 changeAmount(adapterPosition, -1)
             }
-            binding.tvMonogramState
+            //binding.tvMonogramState
         }
 
         fun bind(article: ArticleInOrder) {
