@@ -5,7 +5,7 @@ import retrofit2.Retrofit
 import retrofit2.http.GET
 import retrofit2.http.Query
 import tfg.aperher.comandas.data.section.ESTABLISHMENT_ID
-import tfg.aperher.comandas.data.utils.response.safeApiCall
+import tfg.aperher.comandas.data.utils.safeApiCall
 import tfg.aperher.comandas.domain.model.Category
 import javax.inject.Inject
 import javax.inject.Named

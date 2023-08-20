@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tfg.aperher.comandas.data.order.model.toDomain
 import tfg.aperher.comandas.data.order.model.toDto
-import tfg.aperher.comandas.data.utils.response.toResult
+import tfg.aperher.comandas.data.utils.toResult
 import tfg.aperher.comandas.domain.model.Order
 import java.time.Instant
 import java.time.ZoneOffset
@@ -13,10 +13,10 @@ import javax.inject.Inject
 
 class OrderRepositoryImpl @Inject constructor(private val orderDataSource: OrderDataSource) :
     OrderRepository {
-    override suspend fun getAllOrders(waiterId: String?, dateMillisUTC: Long?): Result<List<Order>> =
+    override suspend fun getAllFinishedOrders(waiterId: String?, dateMillisUTC: Long?): Result<List<Order>> =
         withContext(Dispatchers.IO) {
             val dateTimeStampTz = dateMillisUTC?.let { millisToDate(dateMillisUTC) }
-            orderDataSource.getAllOrders(waiterId, dateTimeStampTz).toResult { it.map { order -> order.toDomain() } }
+            orderDataSource.getAllFinishedOrders(waiterId, dateTimeStampTz).toResult { it.map { order -> order.toDomain() } }
         }
 
     override suspend fun getOrder(orderId: String): Result<Order> = withContext(Dispatchers.IO) {

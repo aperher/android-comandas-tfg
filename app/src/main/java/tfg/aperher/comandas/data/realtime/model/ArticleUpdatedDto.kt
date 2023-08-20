@@ -9,6 +9,7 @@ import tfg.aperher.comandas.domain.model.State
 @JsonClass(generateAdapter = true)
 data class ArticleUpdatedDto(
     val id: String?,
+    val orderId: String?,
     val name: String?,
     val section: String?,
     val table: Int? = 1,
@@ -17,6 +18,7 @@ data class ArticleUpdatedDto(
 ) {
     fun toArticleReady() = ArticleReady(
         id = id ?: "",
+        orderId = orderId ?: "",
         name = name ?: "",
         section = section ?: "",
         table = table ?: 1,

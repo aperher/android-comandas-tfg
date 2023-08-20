@@ -35,7 +35,7 @@ class AddArticleOrderToListUseCase @Inject constructor() {
 
         val replaceArticle = repeatedArticle.copy(
             quantity = repeatedArticle.quantity + article.quantity,
-            id = repeatedArticle.id.plus(article.id)
+            //id = repeatedArticle.id.plus(article.id)
         )
         updatedList[index] = replaceArticle
 

@@ -6,7 +6,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import tfg.aperher.comandas.data.section.model.SectionDto
-import tfg.aperher.comandas.data.utils.response.safeApiCall
+import tfg.aperher.comandas.data.utils.safeApiCall
 import javax.inject.Inject
 import javax.inject.Named
 

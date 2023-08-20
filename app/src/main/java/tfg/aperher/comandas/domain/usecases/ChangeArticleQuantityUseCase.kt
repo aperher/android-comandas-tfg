@@ -28,7 +28,7 @@ class ChangeArticleQuantityUseCase @Inject constructor(
     private suspend fun addNewArticle(list: List<ArticleInOrder>, articleIndex: Int): Pair<Int, List<ArticleInOrder>> {
         val article = list[articleIndex]
         val newArticle = article.copy(
-            id = mutableListOf(null),
+            //id = mutableListOf(null),
             quantity = 1,
             state = State.PENDING
         )
@@ -44,7 +44,7 @@ class ChangeArticleQuantityUseCase @Inject constructor(
         val updatedList = list.toMutableList()
         val replaceArticle = articleInOrder.copy(
             quantity = articleInOrder.quantity - 1,
-            id = articleInOrder.id.dropLast(1)
+            //id = articleInOrder.id.dropLast(1)
         )
         updatedList[articleIndex] = replaceArticle
 

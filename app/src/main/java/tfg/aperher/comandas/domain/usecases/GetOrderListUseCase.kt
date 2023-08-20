@@ -6,5 +6,5 @@ import javax.inject.Inject
 
 class GetOrderListUseCase @Inject constructor(private val orderRepository: OrderRepository) {
     suspend operator fun invoke(waiterId: User?, dateMillisUTC: Long?) =
-        orderRepository.getAllOrders(waiterId?.id, dateMillisUTC)
+        orderRepository.getAllFinishedOrders(waiterId?.id, dateMillisUTC)
 }

@@ -1,4 +1,4 @@
-package tfg.aperher.comandas.data.utils.response
+package tfg.aperher.comandas.data.utils
 
 import okhttp3.MediaType
 import okhttp3.ResponseBody

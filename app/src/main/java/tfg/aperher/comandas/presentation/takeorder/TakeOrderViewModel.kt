@@ -58,7 +58,7 @@ class TakeOrderViewModel @Inject constructor(
             tableNumber = table.number
         )
         val orderActive = !table.orderId.isNullOrEmpty()
-        if (orderActive) getActiveOrder(table.orderId!!)
+        if (orderActive) fetchActiveOrder(table.orderId!!)
     }
 
     fun addArticleToOrder(article: ArticleInOrder) {
@@ -107,7 +107,7 @@ class TakeOrderViewModel @Inject constructor(
         else _orderError.value = Event(OrderErrorException.OrderNotSavedError)
     }
 
-    private fun getActiveOrder(orderId: String) {
+    private fun fetchActiveOrder(orderId: String) {
         viewModelScope.launch {
             _viewState.value = currentViewState.copy(showBottomSheet = Event(true))
 

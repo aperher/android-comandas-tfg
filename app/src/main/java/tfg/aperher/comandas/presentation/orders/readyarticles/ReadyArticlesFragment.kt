@@ -5,8 +5,13 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.ItemTouchHelper
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.FragmentReadyArticlesBinding
 
@@ -50,8 +55,16 @@ class ReadyArticlesFragment : Fragment(R.layout.fragment_ready_articles) {
     }
 
     private fun initObservers() {
-        viewModel.readyArticles.observe(viewLifecycleOwner) { readyArticlesList ->
+        /*viewModel.readyArticles.observe(viewLifecycleOwner) { readyArticlesList ->
             (binding.rvReadyArticles.adapter as ReadyArticlesAdapter).submitList(readyArticlesList)
+        }*/
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.readyArticles.collectLatest { readyArticlesList ->
+                    (binding.rvReadyArticles.adapter as ReadyArticlesAdapter).submitList(readyArticlesList)
+                }
+            }
         }
     }
 }

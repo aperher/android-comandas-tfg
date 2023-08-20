@@ -7,6 +7,10 @@ enum class State(val value: String) {
     READY("preparado"),
     DELIVERED("servido");
 
+    companion object {
+        fun fromValue(value: String) = values().find { it.value == value }
+    }
+
     override fun toString(): String {
         return value
     }

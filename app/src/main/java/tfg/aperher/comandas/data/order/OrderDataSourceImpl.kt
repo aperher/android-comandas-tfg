@@ -10,7 +10,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 import tfg.aperher.comandas.data.order.model.OrderDto
 import tfg.aperher.comandas.data.section.ESTABLISHMENT_ID
-import tfg.aperher.comandas.data.utils.response.safeApiCall
+import tfg.aperher.comandas.data.utils.safeApiCall
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -18,11 +18,11 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
     OrderDataSource {
     private val orderRetrofit = retrofit.create(OrderRetrofit::class.java)
 
-    override suspend fun getAllOrders(
+    override suspend fun getAllFinishedOrders(
         userId: String?,
         date: String?
     ): Response<List<OrderDto>> = safeApiCall {
-        orderRetrofit.getAllOrders(ESTABLISHMENT_ID, userId, date)
+        orderRetrofit.getAllFinishedOrders(ESTABLISHMENT_ID, userId, date)
     }
 
     override suspend fun getOrder(orderId: String): Response<OrderDto> = safeApiCall {
@@ -43,10 +43,10 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
 
     interface OrderRetrofit {
         @GET("orders")
-        suspend fun getAllOrders(
+        suspend fun getAllFinishedOrders(
             @Query("establishmentId") establishment: String,
-            @Query("userId") userId: String?,
-            @Query("date") date: String?
+            @Query("userId") userIdFilter: String?,
+            @Query("date") dateFilter: String?
         ): Response<List<OrderDto>>
 
         @GET("orders/{orderId}")

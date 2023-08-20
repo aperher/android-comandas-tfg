@@ -1,4 +1,4 @@
-package tfg.aperher.comandas.data.utils.response
+package tfg.aperher.comandas.data.utils
 
 import android.util.Log
 import retrofit2.Response

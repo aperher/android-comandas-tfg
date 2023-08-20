@@ -21,6 +21,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.ActivityTakeOrderBinding
@@ -81,7 +82,7 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
         }
 
         viewModel.totalPrice.observe(this) {
-            binding.tvOrderPrice.text = getString(R.string.price, it.toString())
+            binding.tvOrderPrice.text = getString(R.string.price, String.format("%.2f", it))
         }
 
         viewModel.articleNumber.observe(this) {
@@ -104,7 +105,7 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.viewState.collect { viewState ->
+                viewModel.viewState.collectLatest { viewState ->
                     updateUI(viewState)
                 }
             }

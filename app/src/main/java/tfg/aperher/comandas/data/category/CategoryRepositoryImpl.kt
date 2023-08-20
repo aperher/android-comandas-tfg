@@ -2,7 +2,7 @@ package tfg.aperher.comandas.data.category
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import tfg.aperher.comandas.data.utils.response.toResult
+import tfg.aperher.comandas.data.utils.toResult
 import tfg.aperher.comandas.domain.model.Category
 import javax.inject.Inject
 

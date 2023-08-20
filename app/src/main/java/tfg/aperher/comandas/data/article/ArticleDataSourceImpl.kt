@@ -8,7 +8,7 @@ import retrofit2.http.Query
 import tfg.aperher.comandas.data.article.model.ArticleDto
 import tfg.aperher.comandas.data.realtime.model.ArticleUpdatedDto
 import tfg.aperher.comandas.data.section.ESTABLISHMENT_ID
-import tfg.aperher.comandas.data.utils.response.safeApiCall
+import tfg.aperher.comandas.data.utils.safeApiCall
 import javax.inject.Inject
 import javax.inject.Named
 

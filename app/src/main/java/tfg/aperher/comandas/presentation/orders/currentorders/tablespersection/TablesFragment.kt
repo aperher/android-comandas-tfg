@@ -10,7 +10,6 @@ import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.FragmentTablesBinding
 import tfg.aperher.comandas.domain.model.Table
 import tfg.aperher.comandas.presentation.orders.currentorders.SectionTabsFragmentDirections
-import tfg.aperher.comandas.utils.toast
 
 @AndroidEntryPoint
 class TablesFragment : Fragment(R.layout.fragment_tables) {
@@ -22,6 +21,13 @@ class TablesFragment : Fragment(R.layout.fragment_tables) {
     private var _binding: FragmentTablesBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TablesViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val sectionId = requireArguments().getString(ARG_SECTION_ID)!!
+        viewModel.setSectionId(sectionId)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,14 +42,8 @@ class TablesFragment : Fragment(R.layout.fragment_tables) {
     }
 
     private fun initUI() {
-        loadTables()
         initRecyclerAdapter()
         initObservers()
-    }
-
-    private fun loadTables() {
-        val sectionId = requireArguments().getString(ARG_SECTION_ID)!!
-        viewModel.getTables(sectionId)
     }
 
     private fun initRecyclerAdapter() {
@@ -61,13 +61,7 @@ class TablesFragment : Fragment(R.layout.fragment_tables) {
 
     private fun initObservers() {
         viewModel.tables.observe(viewLifecycleOwner) {
-            (binding.rvTables.adapter as TablesAdapter).submitList(it)
-        }
-
-        viewModel.exception.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let { exception ->
-                requireActivity().toast(exception.message.toString())
-            }
+            (binding.rvTables.adapter as TablesAdapter).submitList(it.toMutableList())
         }
 
         viewModel.isLoading.observe(viewLifecycleOwner) {

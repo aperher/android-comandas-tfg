@@ -22,7 +22,7 @@ class SectionTabsViewModel @Inject constructor(
     val sections: LiveData<List<Section>>
         get() = _sections
 
-    val isScrollableTab = _sections.map { it.size > 5 }
+    val isScrollableTab = _sections.map { it.size > 4 }
 
     private val _exception = MutableLiveData<Event<Throwable?>>()
     val exception: LiveData<Event<Throwable?>>
@@ -30,6 +30,7 @@ class SectionTabsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
+            Log.d("SectionTabsViewModel", "init: ")
             getSectionsUseCase().fold(
                 onSuccess = { _sections.value = it },
                 onFailure = { _exception.value = Event(it) }

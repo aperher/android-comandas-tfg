@@ -12,9 +12,8 @@ import tfg.aperher.comandas.databinding.ItemTableBinding
 import tfg.aperher.comandas.domain.model.State
 import tfg.aperher.comandas.domain.model.Table
 
-class TablesAdapter(private val itemClicked: (Table) -> Unit) : ListAdapter<Table, TablesAdapter.ViewHolder>(
-    TableDiff
-) {
+class TablesAdapter(private val itemClicked: (Table) -> Unit) :
+    ListAdapter<Table, TablesAdapter.ViewHolder>(TableDiff) {
 
     object TableDiff : DiffUtil.ItemCallback<Table>() {
         override fun areItemsTheSame(oldItem: Table, newItem: Table): Boolean {

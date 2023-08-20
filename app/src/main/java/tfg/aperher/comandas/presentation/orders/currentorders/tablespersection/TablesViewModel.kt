@@ -9,26 +9,21 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import tfg.aperher.comandas.domain.usecases.GetTablesDetailsUseCase
 import tfg.aperher.comandas.domain.model.Table
-import tfg.aperher.comandas.utils.Event
 import javax.inject.Inject
 
 @HiltViewModel
-class TablesViewModel @Inject constructor(private val tablesSectionUseCase: GetTablesDetailsUseCase) : ViewModel() {
+class TablesViewModel @Inject constructor(private val getTablesSectionUseCase: GetTablesDetailsUseCase) : ViewModel() {
 
-    private val _tables = MutableLiveData<List<Table>>()
-    val tables: LiveData<List<Table>> get() = _tables
+    private val _tables: MutableLiveData<List<Table>> = MutableLiveData()
+    val tables: LiveData<List<Table>> = _tables
 
-    val isLoading = _tables.map { it == null }
+    val isLoading = _tables.map { it.isNullOrEmpty() }
 
-    private val _exception = MutableLiveData<Event<Throwable?>>()
-    val exception: LiveData<Event<Throwable?>> get() = _exception
-
-    fun getTables(sectionId: String) {
+    fun setSectionId(sectionId: String) {
         viewModelScope.launch {
-            tablesSectionUseCase(sectionId).fold(
-                onSuccess = { _tables.value = it },
-                onFailure = { _exception.value = Event(it) }
-            )
+            getTablesSectionUseCase(sectionId).collect { tables ->
+                _tables.value = tables
+            }
         }
     }
 }
