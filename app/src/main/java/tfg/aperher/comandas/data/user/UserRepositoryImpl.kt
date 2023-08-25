@@ -7,6 +7,12 @@ import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(private val userDataSource: UserDataSource) :
     UserRepository {
+    override suspend fun login(email: String, password: String): Result<User> {
+        return userDataSource.login(email, password).toResult {
+            it.toDomain()
+        }
+    }
+
     override suspend fun getEstablishmentWaiters(): Result<List<User>> =
         userDataSource.getEstablishmentWaiters().toResult {
             it.map { userDto -> userDto.toDomain() }

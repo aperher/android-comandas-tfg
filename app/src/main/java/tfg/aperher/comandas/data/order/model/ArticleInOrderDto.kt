@@ -1,7 +1,6 @@
 package tfg.aperher.comandas.data.order.model
 
 import com.squareup.moshi.JsonClass
-import tfg.aperher.comandas.data.ingredient.model.IngredientDto
 
 @JsonClass(generateAdapter = true)
 data class ArticleInOrderDto(

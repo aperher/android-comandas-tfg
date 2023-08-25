@@ -31,7 +31,20 @@
         <item name="colorPrimaryInverse">@color/md_theme_dark_inversePrimary</item>
     </style>
 
-    <style name="Theme.Comandas" parent="Base.Theme.Comandas">
+    <style name="ContextActionBar.Theme.Comandas" parent="Base.Theme.Comandas">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeCloseDrawable">@drawable/close</item>
+        <item name="actionModeStyle">@style/Widget.App.ActionMode</item>
+        <item name="actionBarTheme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
+    </style>
+
+    <style name="Widget.App.ActionMode" parent="Widget.AppCompat.ActionMode">
+        <item name="titleTextStyle">?attr/textAppearanceHeadline6</item>
+        <item name="subtitleTextStyle">?attr/textAppearanceSubtitle1</item>
+        <item name="background">@color/material_grey_850</item>
+    </style>
+
+    <style name="Theme.Comandas" parent="ContextActionBar.Theme.Comandas">
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

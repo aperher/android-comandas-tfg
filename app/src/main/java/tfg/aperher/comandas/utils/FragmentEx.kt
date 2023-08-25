@@ -1,25 +1,20 @@
 package tfg.aperher.comandas.utils
 
-import android.app.Activity
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
 
-fun Activity.toast(text: String, length: Int = Toast.LENGTH_SHORT) {
-    Toast.makeText(this, text, length).show()
-}
+val Fragment.viewLifecycleScope get() = viewLifecycleOwner.lifecycleScope
 
-fun AppCompatActivity.lifecycleScopeLaunch(
+fun Fragment.viewLifecycleScopeLaunch(
     lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
     block: suspend () -> Unit
 ) {
-    lifecycleScope.launch {
+    viewLifecycleScope.launch {
         repeatOnLifecycle(lifecycleState) {
             block()
         }
     }
 }
-

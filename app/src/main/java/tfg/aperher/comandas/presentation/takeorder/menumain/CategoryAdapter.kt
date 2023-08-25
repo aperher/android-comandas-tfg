@@ -39,7 +39,7 @@ class CategoryAdapter(
 
         init {
             itemView.setOnClickListener {
-                val category = getItem(adapterPosition)
+                val category = getItem(absoluteAdapterPosition)
                 onClick(category.id, category.name)
             }
         }

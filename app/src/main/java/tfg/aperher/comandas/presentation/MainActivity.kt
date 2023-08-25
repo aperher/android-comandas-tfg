@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.ActivityMainBinding
@@ -18,15 +19,16 @@ import tfg.aperher.comandas.databinding.ActivityMainBinding
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), MenuProvider {
 
-    private lateinit var binding: ActivityMainBinding
-    private lateinit var navController: NavController
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+    private val navController: NavController by lazy {
+        binding.navHostFragment.getFragment<NavHostFragment>().navController
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        navController = binding.navHostFragment.getFragment<NavHostFragment>().navController
 
         initActionBar()
     }
@@ -45,5 +47,16 @@ class MainActivity : AppCompatActivity(), MenuProvider {
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) =
         menuInflater.inflate(R.menu.top_app_bar, menu)
 
-    override fun onMenuItemSelected(menuItem: MenuItem): Boolean = menuItem.itemId == R.id.help
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        return when (menuItem.itemId) {
+            R.id.help -> {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle(getString(R.string.help_guide))
+                    .setView(R.layout.dialog_help)
+                    .show()
+                true
+            }
+            else -> false
+        }
+    }
 }

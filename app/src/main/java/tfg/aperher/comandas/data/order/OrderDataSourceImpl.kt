@@ -41,6 +41,9 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
         orderRetrofit.setArticleServed(articleOrderId)
     }
 
+    override suspend fun finishOrdersService(tablesId: List<String>): Response<Unit> = safeApiCall {
+        orderRetrofit.finishOrdersService(tablesId)
+    }
     interface OrderRetrofit {
         @GET("orders")
         suspend fun getAllFinishedOrders(
@@ -61,5 +64,8 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
 
         @PUT("orders/servearticle/{articleOrderId}")
         suspend fun setArticleServed(@Path("articleOrderId") articleOrderId: String): Response<Unit>
+
+        @POST("orders/finishservice")
+        suspend fun finishOrdersService(@Body tablesId: List<String>): Response<Unit>
     }
 }

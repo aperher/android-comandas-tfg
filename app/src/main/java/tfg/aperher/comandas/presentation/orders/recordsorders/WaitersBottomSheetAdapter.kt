@@ -29,7 +29,7 @@ class WaitersBottomSheetAdapter(
 
         init {
             binding.root.setOnClickListener {
-                onClick(waiters[adapterPosition])
+                onClick(waiters[absoluteAdapterPosition])
             }
         }
 

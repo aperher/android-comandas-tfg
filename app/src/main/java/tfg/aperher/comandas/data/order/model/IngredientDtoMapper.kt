@@ -1,4 +1,4 @@
-package tfg.aperher.comandas.data.ingredient.model
+package tfg.aperher.comandas.data.order.model
 
 import tfg.aperher.comandas.domain.model.Ingredient
 

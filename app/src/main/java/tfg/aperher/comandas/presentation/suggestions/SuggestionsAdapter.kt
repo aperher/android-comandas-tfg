@@ -29,7 +29,7 @@ class SuggestionsAdapter(private val list: List<Article>, private val onClick: (
 
         init {
             itemView.setOnClickListener {
-                onClick(list[adapterPosition])
+                onClick(list[absoluteAdapterPosition])
             }
 
             (itemView as MaskableFrameLayout).setOnMaskChangedListener { maskRect ->

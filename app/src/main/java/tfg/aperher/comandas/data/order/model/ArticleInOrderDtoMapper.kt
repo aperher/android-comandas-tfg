@@ -1,7 +1,5 @@
 package tfg.aperher.comandas.data.order.model
 
-import tfg.aperher.comandas.data.ingredient.model.toDomain
-import tfg.aperher.comandas.data.ingredient.model.toDto
 import tfg.aperher.comandas.domain.model.ArticleInOrder
 import tfg.aperher.comandas.domain.model.State
 

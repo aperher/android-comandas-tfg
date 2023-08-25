@@ -9,4 +9,5 @@ interface OrderDataSource {
     suspend fun createOrder(order: OrderDto) : Response<Unit>
     suspend fun updateOrder(article: OrderDto) : Response<Unit>
     suspend fun setArticleServed(articleOrderId: String) : Response<Unit>
+    suspend fun finishOrdersService(tablesId: List<String>) : Response<Unit>
 }

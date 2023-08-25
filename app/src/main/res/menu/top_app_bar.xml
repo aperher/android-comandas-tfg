@@ -6,5 +6,6 @@
         android:icon="@drawable/help"
         android:title="@string/help"
         android:contentDescription="@string/help"
+        app:iconTint="?attr/colorOnSurface"
         app:showAsAction="always"/>
 </menu>

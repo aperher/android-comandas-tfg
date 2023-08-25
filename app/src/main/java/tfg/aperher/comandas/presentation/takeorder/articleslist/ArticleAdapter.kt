@@ -40,7 +40,7 @@ class ArticleAdapter(
 
         init {
             itemView.setOnClickListener {
-                onClick(getItem(adapterPosition))
+                onClick(getItem(absoluteAdapterPosition))
             }
         }
 

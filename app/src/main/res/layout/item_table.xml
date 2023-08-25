@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clickable="true"
+        android:focusable="true"
         android:checkable="true"
         app:cardBackgroundColor="?attr/colorSurfaceContainerHigh"
         app:layout_constraintBottom_toBottomOf="parent"

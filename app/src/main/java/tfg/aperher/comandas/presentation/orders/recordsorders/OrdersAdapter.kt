@@ -34,7 +34,7 @@ class OrdersAdapter(private val onClick: (orderId: String) -> Unit) : ListAdapte
 
         init {
             binding.root.setOnClickListener {
-                val order = getItem(adapterPosition)
+                val order = getItem(absoluteAdapterPosition)
                 onClick(order.id!!)
             }
         }

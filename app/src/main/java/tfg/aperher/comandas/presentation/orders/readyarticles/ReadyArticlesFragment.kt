@@ -47,22 +47,22 @@ class ReadyArticlesFragment : Fragment(R.layout.fragment_ready_articles) {
     private fun initAdapter() {
         binding.rvReadyArticles.adapter = ReadyArticlesAdapter()
 
-        val swipeHelper = ItemTouchHelper(SwipeToServeHelperCallback{
-            viewModel.setServedArticleAtPosition(it.adapterPosition)
-        })
+        val swipeHelper = ItemTouchHelper(SwipeToServeHelperCallback(requireContext(),
+            onSwipe = { position ->
+                viewModel.setServedArticleAtPosition(position)
+            }
+        ))
 
         swipeHelper.attachToRecyclerView(binding.rvReadyArticles)
     }
 
     private fun initObservers() {
-        /*viewModel.readyArticles.observe(viewLifecycleOwner) { readyArticlesList ->
-            (binding.rvReadyArticles.adapter as ReadyArticlesAdapter).submitList(readyArticlesList)
-        }*/
-
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.readyArticles.collectLatest { readyArticlesList ->
-                    (binding.rvReadyArticles.adapter as ReadyArticlesAdapter).submitList(readyArticlesList)
+                    (binding.rvReadyArticles.adapter as ReadyArticlesAdapter).submitList(
+                        readyArticlesList
+                    )
                 }
             }
         }

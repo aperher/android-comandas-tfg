@@ -20,7 +20,7 @@ class GetReadyArticlesUseCase @Inject constructor(
             articleRepository.getReadyArticles().getOrElse { emptyList() }.toMutableList()
         emit(initialReadyArticles.toList())
 
-        val updatedArticleFlow = realtimeRepository.listenUpdatedArticles()
+        val updatedArticleFlow = realtimeRepository.listenUpdatedArticle()
             .transform { articleReady ->
                 if (articleReady.status == State.READY || articleReady.status == State.DELIVERED)
                     emit(articleReady)
@@ -33,6 +33,5 @@ class GetReadyArticlesUseCase @Inject constructor(
             }
             emit(initialReadyArticles.toList())
         }
-
     }.flowOn(Dispatchers.IO)
 }

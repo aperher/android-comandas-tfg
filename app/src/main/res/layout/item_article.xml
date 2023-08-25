@@ -71,7 +71,8 @@
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_name"
-            app:srcCompat="@drawable/arrow_right" />
+            app:srcCompat="@drawable/arrow_right"
+            android:tint="?attr/colorOnSurface" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/materialDivider"

@@ -1,4 +1,4 @@
-package tfg.aperher.comandas.presentation.orders.currentorders.tablespersection
+package tfg.aperher.comandas.presentation.orders.currentorders.sectiontables
 
 import android.graphics.Rect
 import android.view.View

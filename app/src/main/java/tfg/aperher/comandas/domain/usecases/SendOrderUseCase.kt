@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tfg.aperher.comandas.data.order.OrderRepository
 import tfg.aperher.comandas.domain.model.Order
-import tfg.aperher.comandas.domain.util.OrderErrorException
+import tfg.aperher.comandas.domain.util.OrderError
 import javax.inject.Inject
 
 class SendOrderUseCase @Inject constructor(
@@ -13,8 +13,8 @@ class SendOrderUseCase @Inject constructor(
     suspend operator fun invoke(initialOrder: Order, orderToSend: Order): Result<Unit> =
         withContext(Dispatchers.IO) {
             when {
-                orderToSend.isEmpty() -> Result.failure(OrderErrorException.EmptyOrderError)
-                initialOrder.articles == orderToSend.articles -> Result.failure(OrderErrorException.SameOrderError)
+                orderToSend.isEmpty() -> Result.failure(OrderError.EmptyOrderError)
+                initialOrder.articles == orderToSend.articles -> Result.failure(OrderError.SameOrderError)
                 else -> sendOrder(orderToSend)
             }
         }
@@ -27,7 +27,7 @@ class SendOrderUseCase @Inject constructor(
         }
 
         return if (result.isSuccess) result
-        else Result.failure(OrderErrorException.SendOrderError)
+        else Result.failure(OrderError.SendOrderError)
     }
 
     private suspend fun updateOrder(order: Order): Result<Unit> =

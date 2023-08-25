@@ -1,9 +1,14 @@
 package tfg.aperher.comandas.presentation.orders.readyarticles
 
+import android.content.Context
+import android.graphics.Canvas
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import tfg.aperher.comandas.R
 
-class SwipeToServeHelperCallback(private val onSwipe: (viewHolder: RecyclerView.ViewHolder) -> Unit) :
+class SwipeToServeHelperCallback(private val context : Context, private val onSwipe: (position: Int) -> Unit) :
     ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.END) {
     override fun onMove(
         recyclerView: RecyclerView,
@@ -20,6 +25,24 @@ class SwipeToServeHelperCallback(private val onSwipe: (viewHolder: RecyclerView.
     }
 
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-        onSwipe(viewHolder)
+        onSwipe(viewHolder.absoluteAdapterPosition)
+    }
+
+    override fun onChildDraw(
+        c: Canvas,
+        recyclerView: RecyclerView,
+        viewHolder: RecyclerView.ViewHolder,
+        dX: Float,
+        dY: Float,
+        actionState: Int,
+        isCurrentlyActive: Boolean
+    ) {
+        RecyclerViewSwipeDecorator.Builder(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            .addBackgroundColor(ContextCompat.getColor(context, R.color.greenArticleState))
+            .addActionIcon(R.drawable.serve)
+            .create()
+            .decorate()
+
+        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
     }
 }

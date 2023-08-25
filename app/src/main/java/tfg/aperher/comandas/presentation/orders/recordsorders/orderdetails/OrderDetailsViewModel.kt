@@ -1,6 +1,5 @@
 package tfg.aperher.comandas.presentation.orders.recordsorders.orderdetails
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,14 +15,16 @@ class OrderDetailsViewModel @Inject constructor(private val getOrderUseCase: Get
     private val _order = MutableLiveData<Order>()
     val order: LiveData<Order> get() = _order
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     fun getOrder(orderId: String) {
         viewModelScope.launch {
-            Log.d("OrderDetailsViewModel", "getOrder: $orderId")
-            getOrderUseCase(orderId).fold(
-                onSuccess = { Log.d("OrderDetailsViewModel", "getOrder: $it"); _order.value = it },
-                onFailure = { Log.d("OrderDetailsViewModel", "getOrder: $it") }
-            )
-            Log.d("OrderDetailsViewModel", "getOrder: ${_order.value}")
+            _isLoading.value = true
+            getOrderUseCase(orderId).onSuccess {
+                _isLoading.value = false
+                _order.value = it
+            }
         }
     }
 }

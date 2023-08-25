@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import tfg.aperher.comandas.domain.model.Section
-import tfg.aperher.comandas.presentation.orders.currentorders.tablespersection.TablesFragment
+import tfg.aperher.comandas.presentation.orders.currentorders.sectiontables.TablesFragment
 
-class SectionsTabsPagerAdapter(private val list: List<Section>, tf: SectionTabsFragment) :
+class SectionsTabPagerAdapter(private val list: List<Section>, tf: SectionsTabFragment) :
     FragmentStateAdapter(tf) {
 
     override fun getItemCount(): Int = list.size

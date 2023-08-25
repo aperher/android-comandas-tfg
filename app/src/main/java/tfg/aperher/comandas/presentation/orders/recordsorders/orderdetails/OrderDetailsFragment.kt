@@ -39,6 +39,11 @@ class OrderDetailsFragment : Fragment(R.layout.fragment_order_details) {
     }
 
     private fun initObservers() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.shimmerCardLoading.visibility = if (isLoading) View.VISIBLE else View.GONE
+            binding.normalCard.visibility = if (isLoading) View.INVISIBLE else View.VISIBLE
+        }
+
         viewModel.order.observe(viewLifecycleOwner) { order ->
             binding.tvSection.text = context?.getString(R.string.show_section, order.section)
             binding.tvTableNumber.text = context?.getString(R.string.table, order.table.toString())
@@ -49,6 +54,4 @@ class OrderDetailsFragment : Fragment(R.layout.fragment_order_details) {
             binding.rvArticles.adapter = ArticlesAdapter(order.articles)
         }
     }
-
-
 }

@@ -1,6 +1,5 @@
 package tfg.aperher.comandas.presentation.takeorder
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +16,8 @@ import tfg.aperher.comandas.domain.model.ArticleInOrder
 import tfg.aperher.comandas.domain.model.Order
 import tfg.aperher.comandas.domain.model.Table
 import tfg.aperher.comandas.domain.usecases.SendOrderUseCase
-import tfg.aperher.comandas.domain.util.OrderErrorException
+import tfg.aperher.comandas.domain.usecases.SetServedArticleUseCase
+import tfg.aperher.comandas.domain.util.OrderError
 import tfg.aperher.comandas.utils.Event
 import javax.inject.Inject
 
@@ -26,7 +26,8 @@ class TakeOrderViewModel @Inject constructor(
     private val addArticleOrderToListUseCase: AddArticleOrderToListUseCase,
     private val changeQuantityUseCase: ChangeArticleQuantityUseCase,
     private val getOrderUseCase: GetOrderUseCase,
-    private val sendOrderUseCase: SendOrderUseCase
+    private val sendOrderUseCase: SendOrderUseCase,
+    private val setServedArticleUseCase: SetServedArticleUseCase
 ) : ViewModel() {
 
     private lateinit var initialOrder: Order
@@ -42,17 +43,16 @@ class TakeOrderViewModel @Inject constructor(
     val invalidateElementList: LiveData<Event<Int>> get() = _invalidateElementList
 
     private val _viewState = MutableStateFlow(TakeOrderViewState())
-    private val currentViewState get() = _viewState.value
     val viewState: StateFlow<TakeOrderViewState> get() = _viewState
 
-    private val _orderError = MutableLiveData<Event<OrderErrorException>>()
-    val orderError: LiveData<Event<OrderErrorException>> get() = _orderError
+    private val _orderError = MutableLiveData<Event<OrderError>>()
+    val orderError: LiveData<Event<OrderError>> get() = _orderError
 
     private val _navigateToOrderActivity = MutableLiveData<Event<Boolean>>()
     val navigateToOrderActivity: LiveData<Event<Boolean>> get() = _navigateToOrderActivity
 
     fun initOrder(sectionName: String, table: Table) {
-        initialOrder = Order(tableId = table.id, section = sectionName)
+        initialOrder = Order(id = table.orderId, tableId = table.id, section = sectionName)
         _viewState.value = TakeOrderViewState(
             sectionName = sectionName,
             tableNumber = table.number
@@ -79,45 +79,56 @@ class TakeOrderViewModel @Inject constructor(
             _articlesInOrder.value = newList
             if (articleIndex != -1) _invalidateElementList.value = Event(articleIndex)
             if (newList.isEmpty())
-                _viewState.value = currentViewState.copy(showBottomSheet = Event(false))
+                _viewState.value = _viewState.value.copy(showBottomSheet = Event(false))
         }
     }
 
     fun sendOrder() {
         viewModelScope.launch {
-            _viewState.value = currentViewState.copy(progressBarLoading = true)
+            _viewState.value = _viewState.value.copy(progressBarLoading = true)
 
             val result = sendOrderUseCase(initialOrder, currentOrder)
             result.fold(
                 onSuccess = { _navigateToOrderActivity.value = Event(true) },
-                onFailure = { _orderError.value = Event(it as OrderErrorException) }
+                onFailure = {
+                    val error = it as OrderError
+                    if (error == OrderError.SendOrderError) showBottomSheet(false)
+                    _orderError.value = Event(error)
+                }
             )
 
-            _viewState.value = currentViewState.copy(progressBarLoading = false)
+            _viewState.value = _viewState.value.copy(progressBarLoading = false)
         }
     }
 
     fun showBottomSheet(shouldShow: Boolean) {
-        _viewState.value = currentViewState.copy(showBottomSheet = Event(shouldShow))
+        _viewState.value = _viewState.value.copy(showBottomSheet = Event(shouldShow))
     }
 
     fun checkOrderSaved() {
         val isSaved = initialOrder.articles == _articlesInOrder.value!!
         if (isSaved) _navigateToOrderActivity.value = Event(true)
-        else _orderError.value = Event(OrderErrorException.OrderNotSavedError)
+        else _orderError.value = Event(OrderError.OrderNotSavedError)
     }
 
     private fun fetchActiveOrder(orderId: String) {
         viewModelScope.launch {
-            _viewState.value = currentViewState.copy(showBottomSheet = Event(true))
+            _viewState.value = _viewState.value.copy(showBottomSheet = Event(true))
 
-            val result = getOrderUseCase(orderId)
-            result.fold(
-                onSuccess = { order ->
-                    initialOrder = order; _articlesInOrder.value = order.articles
-                },
-                onFailure = { Log.d("TakeOrderViewModel", "Order not found") }
-            )
+            getOrderUseCase(orderId).onSuccess { order ->
+                initialOrder = order; _articlesInOrder.value = order.articles
+            }
+        }
+    }
+
+    fun setArticlesServed(articleOrderIds: List<String?>) {
+        viewModelScope.launch {
+            articleOrderIds.forEach { articleOrderId ->
+                articleOrderId?.let { id ->
+                    setServedArticleUseCase(id)
+                    fetchActiveOrder(initialOrder.id!!)
+                }
+            }
         }
     }
 }

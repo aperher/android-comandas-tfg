@@ -14,10 +14,10 @@ import tfg.aperher.comandas.domain.model.Section
 import tfg.aperher.comandas.utils.toast
 
 @AndroidEntryPoint
-class SectionTabsFragment : Fragment(R.layout.fragment_section_tabs) {
+class SectionsTabFragment : Fragment(R.layout.fragment_section_tabs) {
     private var _binding: FragmentSectionTabsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: SectionTabsViewModel by viewModels()
+    private val viewModel: SectionsTabViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,7 +55,7 @@ class SectionTabsFragment : Fragment(R.layout.fragment_section_tabs) {
     }
 
     private fun setupViewPager(sections: List<Section>) {
-        binding.viewPager.adapter = SectionsTabsPagerAdapter(sections, this@SectionTabsFragment)
+        binding.viewPager.adapter = SectionsTabPagerAdapter(sections, this@SectionsTabFragment)
     }
 
     private fun setupTabLayout(sections: List<Section>) {

@@ -29,14 +29,16 @@ class AddArticleOrderToListUseCase @Inject constructor() {
             it.articleId == article.articleId && it.extras == article.extras && it.state == State.PENDING
         }
 
-    private fun updateRepeatedArticle(list: List<ArticleInOrder>, index: Int, article: ArticleInOrder) : List<ArticleInOrder> {
+    private fun updateRepeatedArticle(
+        list: List<ArticleInOrder>,
+        index: Int,
+        article: ArticleInOrder
+    ): List<ArticleInOrder> {
         val updatedList = list.toMutableList()
         val repeatedArticle = updatedList[index]
 
-        val replaceArticle = repeatedArticle.copy(
-            quantity = repeatedArticle.quantity + article.quantity,
-            //id = repeatedArticle.id.plus(article.id)
-        )
+        val replaceArticle =
+            repeatedArticle.copy(quantity = repeatedArticle.quantity + article.quantity)
         updatedList[index] = replaceArticle
 
         return updatedList.toList()

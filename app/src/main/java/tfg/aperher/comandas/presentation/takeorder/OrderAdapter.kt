@@ -1,7 +1,9 @@
 package tfg.aperher.comandas.presentation.takeorder
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -10,8 +12,10 @@ import tfg.aperher.comandas.databinding.ItemArticleTakeOrderBinding
 import tfg.aperher.comandas.domain.model.ArticleInOrder
 import tfg.aperher.comandas.domain.model.State
 
-class OrderAdapter(private val changeAmount: (Int, Int) -> Unit) :
-    ListAdapter<ArticleInOrder, OrderAdapter.OrderViewHolder>(ArticleInOrderDiff) {
+class OrderAdapter(
+    private val changeAmount: (Int, Int) -> Unit,
+    private val onClickToServe: (articleOrderIds: List<String?>) -> Unit
+) : ListAdapter<ArticleInOrder, OrderAdapter.OrderViewHolder>(ArticleInOrderDiff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -27,12 +31,11 @@ class OrderAdapter(private val changeAmount: (Int, Int) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {
         init {
             binding.btnAdd.setOnClickListener {
-                changeAmount(adapterPosition, 1)
+                changeAmount(absoluteAdapterPosition, 1)
             }
             binding.btnRemove.setOnClickListener {
-                changeAmount(adapterPosition, -1)
+                changeAmount(absoluteAdapterPosition, -1)
             }
-            //binding.tvMonogramState
         }
 
         fun bind(article: ArticleInOrder) {
@@ -40,10 +43,32 @@ class OrderAdapter(private val changeAmount: (Int, Int) -> Unit) :
                 btnRemove.isEnabled = article.state == State.PENDING
                 tvArticleName.text = article.name
                 tvArticlePrice.text = binding.root.context.getString(
-                        R.string.price,
-                        String.format("%.2f", article.price * article.quantity)
-                    )
+                    R.string.price,
+                    String.format("%.2f", article.price * article.quantity)
+                )
                 tvMonogramState.text = article.quantity.toString()
+
+                tvMonogramState.backgroundTintList = ContextCompat.getColorStateList(
+                    binding.root.context,
+                    getColorState(article.state)
+                )
+
+                if (article.state == State.READY) {
+                    binding.root.setOnClickListener {
+                        onClickToServe(article.id)
+                    }
+                } else if (article.state == State.DELIVERED) {
+                    binding.served.visibility = RecyclerView.VISIBLE
+                }
+            }
+        }
+
+        @SuppressLint("PrivateResource")
+        private fun getColorState(state: State): Int = when (state) {
+            State.PREPARING -> R.color.orangeArticleState
+            State.READY, State.DELIVERED -> R.color.greenArticleState
+            else -> {
+                com.google.android.material.R.color.m3_sys_color_light_surface_container_high
             }
         }
     }

@@ -56,9 +56,9 @@ class RecordOrdersFragment : Fragment(R.layout.fragment_records_orders) {
     }
 
     private fun initRecyclerAdapter() {
-        binding.rvRecordsOrders.adapter = OrdersAdapter { orderId ->
+        binding.rvRecordsOrders.adapter = OrdersAdapter(onClick = { orderId ->
             goToOrderDetails(orderId)
-        }
+        })
     }
 
     private fun initListeners() {

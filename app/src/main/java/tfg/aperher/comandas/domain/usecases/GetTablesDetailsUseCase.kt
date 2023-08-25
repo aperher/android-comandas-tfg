@@ -31,5 +31,6 @@ class GetTablesDetailsUseCase @Inject constructor(
 
                 emit(sectionTables)
             }
+
     }.flowOn(Dispatchers.IO)
 }

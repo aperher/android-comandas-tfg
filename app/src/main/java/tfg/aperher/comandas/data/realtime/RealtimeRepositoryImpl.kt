@@ -8,6 +8,8 @@ import io.github.jan.supabase.realtime.createChannel
 import io.github.jan.supabase.realtime.postgresChangeFlow
 import io.github.jan.supabase.realtime.realtime
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.map
@@ -32,7 +34,15 @@ class RealtimeRepositoryImpl @Inject constructor(
     private val articleReadySharedFlow = MutableSharedFlow<ArticleReady>()
     private val orderUpdatesSharedFlow = MutableSharedFlow<Pair<Order, State>>()
 
-    override suspend fun listenUpdatedArticles(): Flow<ArticleReady> {
+    init {
+        CoroutineScope(SupervisorJob() + Dispatchers.IO).launch {
+            startListenUpdatedArticle()
+        }
+    }
+
+    override suspend fun listenUpdatedArticle(): Flow<ArticleReady> = articleReadySharedFlow
+
+    private suspend fun startListenUpdatedArticle() {
         val channelId = ESTABLISHMENT_ID
         val channel = supabaseClient.realtime.createChannel(channelId)
 
@@ -49,8 +59,6 @@ class RealtimeRepositoryImpl @Inject constructor(
         CoroutineScope(coroutineContext).launch {
             changeFlow.collect { articleReadySharedFlow.emit(it) }
         }
-
-        return articleReadySharedFlow
     }
 
     override suspend fun listeningForUpdatedOrders(sectionId: String): Flow<Pair<Order, State>> {
@@ -60,7 +68,7 @@ class RealtimeRepositoryImpl @Inject constructor(
             table = "Comanda"
             filter = "seccion_id=eq.$sectionId"
         }.map {
-            val orderId = it.record["id"]?.jsonPrimitive?.content ?: ""
+            var orderId = it.record["id"]?.jsonPrimitive?.content
             val tableId = it.record["mesa_id"]?.jsonPrimitive?.content ?: ""
             var initTime = it.record["fecha_hora_inicio"]?.jsonPrimitive?.content?.getTime() ?: ""
             val stateString = it.record["estado"]?.jsonPrimitive?.content ?: ""
@@ -69,7 +77,7 @@ class RealtimeRepositoryImpl @Inject constructor(
             val state = if (isOnService) {
                 State.fromValue(stateString) ?: State.AVAILABLE
             } else {
-                initTime = ""
+                orderId = null; initTime = ""
                 State.AVAILABLE
             }
 

@@ -11,13 +11,3 @@ fun UserDto.toDomain(): User {
         role = role ?: ""
     )
 }
-
-fun User.toData(): UserDto {
-    return UserDto(
-        id = id,
-        name = name,
-        email = email,
-        password = password,
-        role = role
-    )
-}

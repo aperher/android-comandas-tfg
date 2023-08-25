@@ -58,4 +58,21 @@
     <string name="try_later">Reintentelo más tarde.</string>
     <string name="most_ordered_articles">Platos más pedidos</string>
     <string name="prominent_dishes">Platos destacados</string>
+    <string name="serve_article">Servir artículo</string>
+    <string name="serve_article_msg">¿Deseas marcar como servido este artículo?</string>
+    <string name="served_all_articles">Todos los artículos están servidos</string>
+    <string name="available_table">Mesa disponible</string>
+    <string name="taken_table">Mesa atendida</string>
+    <string name="ready_articles">Hay artículos preparados</string>
+    <string name="ordered_article">Artículo pedido</string>
+    <string name="preparing_article">Artículo en preparación</string>
+    <string name="ready_article">Artículo preparado</string>
+    <string name="served_article">Artículo servido</string>
+    <string name="finish_order">Finalizar</string>
+    <string name="help_guide">Guía de ayuda</string>
+    <string name="num_selected">%1$s seleccionadas</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="can_not_sign_in">No se ha podido iniciar sesión</string>
 </resources>

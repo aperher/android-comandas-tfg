@@ -9,9 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.navArgs
@@ -22,12 +19,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import tfg.aperher.comandas.R
 import tfg.aperher.comandas.databinding.ActivityTakeOrderBinding
 import tfg.aperher.comandas.domain.model.ArticleInOrder
-import tfg.aperher.comandas.domain.util.OrderErrorException
+import tfg.aperher.comandas.domain.util.OrderError
 import tfg.aperher.comandas.presentation.takeorder.articledetails.ArticleDetailsFragment.ArticleAddedListener
+import tfg.aperher.comandas.utils.lifecycleScopeLaunch
 
 @AndroidEntryPoint
 class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListener {
@@ -71,14 +68,25 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
             viewModel.showBottomSheet(true)
         }
 
-        binding.rvOrderItems.adapter = OrderAdapter { articlePosition, quantity ->
-            viewModel.updateArticle(articlePosition, quantity)
-        }
+        binding.rvOrderItems.adapter = OrderAdapter(
+            changeAmount = { position, amount ->
+                viewModel.updateArticle(position, amount)
+            },
+            onClickToServe = { articleOrderIds ->
+                MaterialAlertDialogBuilder(this)
+                    .setTitle(getString(R.string.serve_article))
+                    .setMessage(getString(R.string.serve_article_msg))
+                    .setPositiveButton(R.string.accept) { _, _ ->
+                        viewModel.setArticlesServed(articleOrderIds)
+                    }.setNegativeButton(R.string.cancel) { _, _ -> }
+                    .show()
+            }
+        )
     }
 
     private fun initObservers() {
         viewModel.articlesInOrder.observe(this) {
-            (binding.rvOrderItems.adapter as OrderAdapter).submitList(it)
+            (binding.rvOrderItems.adapter as OrderAdapter).submitList(it.toMutableList())
         }
 
         viewModel.totalPrice.observe(this) {
@@ -103,14 +111,13 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
             }
         }
 
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                viewModel.viewState.collectLatest { viewState ->
-                    updateUI(viewState)
-                }
+        lifecycleScopeLaunch {
+            viewModel.viewState.collectLatest { viewState ->
+                updateUI(viewState)
             }
         }
     }
+
 
     private fun updateUI(viewState: TakeOrderViewState) {
         binding.tvSection.text = viewState.sectionName
@@ -129,33 +136,32 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
         }
     }
 
-    private fun informError(error: OrderErrorException) {
+    private fun informError(error: OrderError) {
         when (error) {
-            OrderErrorException.EmptyOrderError -> MaterialAlertDialogBuilder(this)
+            OrderError.EmptyOrderError -> MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.empty_order))
                 .setMessage(getString(R.string.empty_order_msg))
                 .setPositiveButton(R.string.accept) { _, _ -> }.show()
 
-            OrderErrorException.OrderNotSavedError -> MaterialAlertDialogBuilder(this)
+            OrderError.OrderNotSavedError -> MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.changes_not_saved))
                 .setMessage(getString(R.string.changes_not_saved_msg))
                 .setPositiveButton(getString(R.string.send)) { _, _ -> viewModel.sendOrder() }
                 .setNegativeButton(R.string.cancel) { _, _ -> finish() }
                 .show()
 
-            OrderErrorException.SameOrderError -> MaterialAlertDialogBuilder(this)
+            OrderError.SameOrderError -> MaterialAlertDialogBuilder(this)
                 .setTitle(getString(R.string.same_order))
                 .setMessage(getString(R.string.same_order_msg))
                 .setPositiveButton(R.string.accept) { _, _ -> }.show()
 
-            OrderErrorException.SendOrderError -> {
-                viewModel.showBottomSheet(false)
+            OrderError.SendOrderError -> {
                 Snackbar.make(
                     binding.orderBottomSheet,
                     getString(R.string.sent_error),
                     Snackbar.LENGTH_SHORT
                 ).setAnchorView(binding.previewBottomSheet)
-                .setAction(getString(R.string.retry)) { viewModel.sendOrder() }.show()
+                    .setAction(getString(R.string.retry)) { viewModel.sendOrder() }.show()
             }
         }
     }

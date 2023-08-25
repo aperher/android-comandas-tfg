@@ -14,7 +14,7 @@ import tfg.aperher.comandas.utils.Event
 import javax.inject.Inject
 
 @HiltViewModel
-class SectionTabsViewModel @Inject constructor(
+class SectionsTabViewModel @Inject constructor(
     private val getSectionsUseCase : GetSectionsUseCase,
 ) : ViewModel() {
 

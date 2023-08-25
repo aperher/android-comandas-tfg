@@ -6,7 +6,7 @@
     app:startDestination="@id/sectionTabsFragment">
     <fragment
         android:id="@+id/sectionTabsFragment"
-        android:name="tfg.aperher.comandas.presentation.orders.currentorders.SectionTabsFragment"
+        android:name="tfg.aperher.comandas.presentation.orders.currentorders.SectionsTabFragment"
         android:label="@string/orders"
         tools:layout="@layout/fragment_section_tabs">
         <action

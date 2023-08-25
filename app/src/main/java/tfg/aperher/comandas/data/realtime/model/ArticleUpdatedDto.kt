@@ -1,8 +1,8 @@
 package tfg.aperher.comandas.data.realtime.model
 
 import com.squareup.moshi.JsonClass
-import tfg.aperher.comandas.data.ingredient.model.IngredientDto
-import tfg.aperher.comandas.data.ingredient.model.toDomain
+import tfg.aperher.comandas.data.order.model.IngredientDto
+import tfg.aperher.comandas.data.order.model.toDomain
 import tfg.aperher.comandas.domain.model.ArticleReady
 import tfg.aperher.comandas.domain.model.State
 
