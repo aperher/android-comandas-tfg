@@ -59,7 +59,7 @@
     <string name="most_ordered_articles">Platos más pedidos</string>
     <string name="prominent_dishes">Platos destacados</string>
     <string name="serve_article">Servir artículo</string>
-    <string name="serve_article_msg">¿Deseas marcar como servido este artículo?</string>
+    <string name="serve_article_msg">¿Deseas marcar como servido %1s de %2s?</string>
     <string name="served_all_articles">Todos los artículos están servidos</string>
     <string name="available_table">Mesa disponible</string>
     <string name="taken_table">Mesa atendida</string>
@@ -75,4 +75,5 @@
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
     <string name="can_not_sign_in">No se ha podido iniciar sesión</string>
+    <string name="ready_articles_help">Desplaza un artículo a la derecha para servirlo.</string>
 </resources>

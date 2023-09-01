@@ -45,7 +45,6 @@ class SuggestionsAdapter(private val list: List<Article>, private val onClick: (
 
             Glide.with(itemView)
                 .load(article.image)
-                //.transform(CenterCrop(), RoundedCorners(24))
                 .into(binding.carouselImageView)
         }
     }

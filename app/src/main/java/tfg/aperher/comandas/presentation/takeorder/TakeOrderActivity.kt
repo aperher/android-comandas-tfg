@@ -72,12 +72,12 @@ class TakeOrderActivity : AppCompatActivity(), MenuProvider, ArticleAddedListene
             changeAmount = { position, amount ->
                 viewModel.updateArticle(position, amount)
             },
-            onClickToServe = { articleOrderIds ->
+            onClickToServe = { article ->
                 MaterialAlertDialogBuilder(this)
                     .setTitle(getString(R.string.serve_article))
-                    .setMessage(getString(R.string.serve_article_msg))
+                    .setMessage(getString(R.string.serve_article_msg, article.quantity.toString(), article.name))
                     .setPositiveButton(R.string.accept) { _, _ ->
-                        viewModel.setArticlesServed(articleOrderIds)
+                        viewModel.setArticlesServed(article.id)
                     }.setNegativeButton(R.string.cancel) { _, _ -> }
                     .show()
             }

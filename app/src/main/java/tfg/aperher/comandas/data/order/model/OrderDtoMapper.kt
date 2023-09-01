@@ -11,7 +11,13 @@ suspend fun Order.toDto() = withContext(Dispatchers.Default) {
         id = id,
         table = table,
         tableId = tableId,
-        articles = articles.map { it.id.map { id -> it.toDto().copy(id = id) } }.flatten()
+        articles = articles.map { article ->
+            (0 until article.quantity).map { indexId ->
+                article.toDto()
+                    .copy(id = if (indexId > article.id.size) null else article.id[indexId])
+
+            }
+        }.flatten()
     )
 }
 

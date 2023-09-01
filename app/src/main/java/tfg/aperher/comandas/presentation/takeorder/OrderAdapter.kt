@@ -14,7 +14,7 @@ import tfg.aperher.comandas.domain.model.State
 
 class OrderAdapter(
     private val changeAmount: (Int, Int) -> Unit,
-    private val onClickToServe: (articleOrderIds: List<String?>) -> Unit
+    private val onClickToServe: (article: ArticleInOrder) -> Unit
 ) : ListAdapter<ArticleInOrder, OrderAdapter.OrderViewHolder>(ArticleInOrderDiff) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
@@ -55,7 +55,7 @@ class OrderAdapter(
 
                 if (article.state == State.READY) {
                     binding.root.setOnClickListener {
-                        onClickToServe(article.id)
+                        onClickToServe(article)
                     }
                 } else if (article.state == State.DELIVERED) {
                     binding.served.visibility = RecyclerView.VISIBLE

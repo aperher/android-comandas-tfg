@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 fun Activity.toast(text: String, length: Int = Toast.LENGTH_SHORT) {
@@ -15,11 +16,9 @@ fun Activity.toast(text: String, length: Int = Toast.LENGTH_SHORT) {
 fun AppCompatActivity.lifecycleScopeLaunch(
     lifecycleState: Lifecycle.State = Lifecycle.State.STARTED,
     block: suspend () -> Unit
-) {
-    lifecycleScope.launch {
-        repeatOnLifecycle(lifecycleState) {
-            block()
-        }
+): Job = lifecycleScope.launch {
+    repeatOnLifecycle(lifecycleState) {
+        block()
     }
 }
 

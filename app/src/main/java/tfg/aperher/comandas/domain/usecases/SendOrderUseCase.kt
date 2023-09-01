@@ -1,5 +1,6 @@
 package tfg.aperher.comandas.domain.usecases
 
+import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import tfg.aperher.comandas.data.order.OrderRepository
@@ -25,6 +26,7 @@ class SendOrderUseCase @Inject constructor(
         } else {
             updateOrder(order)
         }
+        Log.d("SendOrderUseCase", "sendOrder: ${order}")
 
         return if (result.isSuccess) result
         else Result.failure(OrderError.SendOrderError)

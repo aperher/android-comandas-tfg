@@ -16,6 +16,7 @@ import javax.inject.Named
 
 class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: Retrofit) :
     OrderDataSource {
+
     private val orderRetrofit = retrofit.create(OrderRetrofit::class.java)
 
     override suspend fun getAllFinishedOrders(
@@ -44,6 +45,7 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
     override suspend fun finishOrdersService(tablesId: List<String>): Response<Unit> = safeApiCall {
         orderRetrofit.finishOrdersService(tablesId)
     }
+
     interface OrderRetrofit {
         @GET("orders")
         suspend fun getAllFinishedOrders(
@@ -55,7 +57,6 @@ class OrderDataSourceImpl @Inject constructor(@Named("restRetrofit") retrofit: R
         @GET("orders/{orderId}")
         suspend fun getOrder(@Path("orderId") orderId: String): Response<OrderDto>
 
-        // Meterle el header del camareroId
         @POST("orders")
         suspend fun createOrder(@Body order: OrderDto): Response<Unit>
 

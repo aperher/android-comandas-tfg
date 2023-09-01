@@ -17,7 +17,7 @@ class WaitersBottomSheet : BottomSheetDialogFragment(R.layout.fragment_records_b
     }
 
     private var _binding: FragmentRecordsBottomSheetFilterBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
     private val viewModel: WaitersBottomSheetViewModel by viewModels()
     private var listener: OnWaiterSelectedListener? = null
 

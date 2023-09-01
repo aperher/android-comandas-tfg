@@ -42,8 +42,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private fun initListeners() {
         binding.cardSuggestions.setOnClickListener {
-            //val action = MenuFragmentDirections.actionMenuFragmentToSuggestionsFragment()
-            findNavController().navigate(R.id.action_menuFragment_to_suggestionsFragment)
+            goToSuggestions()
         }
     }
 
@@ -55,6 +54,11 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private fun goToArticlesList(id: String, name: String) {
         val action = MenuFragmentDirections.actionMenuFragmentToArticlesFragment(id, name)
+        findNavController().navigate(action)
+    }
+
+    private fun goToSuggestions() {
+        val action = MenuFragmentDirections.actionMenuFragmentToSuggestionsFragment()
         findNavController().navigate(action)
     }
 }

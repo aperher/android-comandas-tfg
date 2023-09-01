@@ -1,5 +1,6 @@
 package tfg.aperher.comandas.domain.usecases
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,7 +31,7 @@ class ChangeArticleQuantityUseCase @Inject constructor(
         articleIndex: Int
     ): Pair<Int, List<ArticleInOrder>> {
         val article = list[articleIndex]
-        val newArticle = article.copy(quantity = 1, state = State.PENDING)
+        val newArticle = article.copy(id = listOf(null), quantity = 1, state = State.PENDING)
         return addArticleOrderToListUseCase(list, newArticle)
     }
 
@@ -41,14 +42,13 @@ class ChangeArticleQuantityUseCase @Inject constructor(
         val articleInOrder = list[articleIndex]
 
         if (articleInOrder.state != State.PENDING) return Pair(-1, list)
-        if (articleInOrder.quantity == 1) return Pair(
-            -1,
-            list.filterIndexed { index, _ -> index != articleIndex })
+        if (articleInOrder.quantity == 1)
+            return Pair(-1, list.filterIndexed { index, _ -> index != articleIndex })
 
         val updatedList = list.toMutableList()
         val replaceArticle = articleInOrder.copy(quantity = articleInOrder.quantity - 1)
         updatedList[articleIndex] = replaceArticle
-
+        Log.d("ChangeArticleQuantityUseCase", "removeArticle: $replaceArticle index: $articleIndex")
         return Pair(articleIndex, updatedList)
     }
 }

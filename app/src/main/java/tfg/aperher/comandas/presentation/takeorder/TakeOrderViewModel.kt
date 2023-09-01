@@ -111,16 +111,6 @@ class TakeOrderViewModel @Inject constructor(
         else _orderError.value = Event(OrderError.OrderNotSavedError)
     }
 
-    private fun fetchActiveOrder(orderId: String) {
-        viewModelScope.launch {
-            _viewState.value = _viewState.value.copy(showBottomSheet = Event(true))
-
-            getOrderUseCase(orderId).onSuccess { order ->
-                initialOrder = order; _articlesInOrder.value = order.articles
-            }
-        }
-    }
-
     fun setArticlesServed(articleOrderIds: List<String?>) {
         viewModelScope.launch {
             articleOrderIds.forEach { articleOrderId ->
@@ -128,6 +118,16 @@ class TakeOrderViewModel @Inject constructor(
                     setServedArticleUseCase(id)
                     fetchActiveOrder(initialOrder.id!!)
                 }
+            }
+        }
+    }
+
+    private fun fetchActiveOrder(orderId: String) {
+        viewModelScope.launch {
+            _viewState.value = _viewState.value.copy(showBottomSheet = Event(true))
+
+            getOrderUseCase(orderId).onSuccess { order ->
+                initialOrder = order; _articlesInOrder.value = order.articles
             }
         }
     }

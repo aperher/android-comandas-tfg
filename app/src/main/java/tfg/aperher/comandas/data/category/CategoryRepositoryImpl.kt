@@ -12,5 +12,4 @@ class CategoryRepositoryImpl @Inject constructor(
     override suspend fun getCategories(): Result<List<Category>> = withContext(Dispatchers.IO) {
         categoryDataSource.getCategories().toResult { it }
     }
-
 }

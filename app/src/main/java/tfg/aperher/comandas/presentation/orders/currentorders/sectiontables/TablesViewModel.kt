@@ -1,6 +1,5 @@
 package tfg.aperher.comandas.presentation.orders.currentorders.sectiontables
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,9 +33,7 @@ class TablesViewModel @Inject constructor(
 
     fun setTablesFinished(tables: List<Table>) {
         viewModelScope.launch {
-            finishServiceUseCase(tables).onSuccess {
-                Log.d("TablesViewModel", "Tables finished successfully")
-            }
+            finishServiceUseCase(tables)
         }
     }
 }

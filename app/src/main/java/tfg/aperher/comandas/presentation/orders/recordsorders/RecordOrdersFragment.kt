@@ -115,15 +115,15 @@ class RecordOrdersFragment : Fragment(R.layout.fragment_records_orders) {
     }
 
     private fun openBottomSheetDialog() {
-        val bottomSheetFragment = WaitersBottomSheet()
-        bottomSheetFragment.setOnWaiterSelectedListener(
-            object : WaitersBottomSheet.OnWaiterSelectedListener {
-                override fun onWaiterSelected(waiter: User) {
-                    viewModel.onWaiterSelected(waiter)
+        WaitersBottomSheet().apply {
+            setOnWaiterSelectedListener(
+                object : WaitersBottomSheet.OnWaiterSelectedListener {
+                    override fun onWaiterSelected(waiter: User) {
+                        viewModel.onWaiterSelected(waiter)
+                    }
                 }
-            }
-        )
-        bottomSheetFragment.show(requireActivity().supportFragmentManager, bottomSheetFragment.tag)
+            )
+        }.show(requireActivity().supportFragmentManager, this.tag)
     }
 
     private fun openDatePicker() {
