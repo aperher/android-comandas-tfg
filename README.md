@@ -48,9 +48,9 @@ implementación de las externas. El flujo de los datos a través de los componen
 - Shimmer
 
 ## Demo
-![image](https://github.com/aperher/android-comandas-tfg/assets/100694428/bf12b827-2c53-42e5-ab7d-96da1a7fc219)
-![image](https://github.com/aperher/android-comandas-tfg/assets/100694428/929c550a-034f-4b0f-98ea-5996cf264b9a)
-![image](https://github.com/aperher/android-comandas-tfg/assets/100694428/2419fcc7-32af-4016-91cc-b87fa0445da3)
+<img width="600" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/bf12b827-2c53-42e5-ab7d-96da1a7fc219"/>
+<img width="600" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/929c550a-034f-4b0f-98ea-5996cf264b9a"/>
+<img width="600" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/2419fcc7-32af-4016-91cc-b87fa0445da3"/>
 
 # Usabilidad
 En este proyecto se ha hecho uso de la guía de diseño [Material3](https://m3.material.io/). <br/> <br/> 
