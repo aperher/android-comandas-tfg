@@ -53,3 +53,12 @@ implementación de las externas. El flujo de los datos a través de los componen
 ![image](https://github.com/aperher/android-comandas-tfg/assets/100694428/2419fcc7-32af-4016-91cc-b87fa0445da3)
 
 # Usabilidad
+En este proyecto se ha hecho uso de la guía de diseño [Material3](https://m3.material.io/). <br/> <br/> 
+Algunas reglas heurísticas de Nielsen:
+**Visibilidad del estado:** | **Prevención de errores:**
+----------------------------|---------------------------
+<img width="350" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/e505e53f-07c6-4f2f-bbcd-59234082e2c6"/> | <img width="350" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/e625385d-9347-4c84-9e07-b6eacac073a3"/>
+
+**Diagnosticar y recuperarse de errores:** | **Ayuda y documentación:**
+-------------------------------------------|---------------------------
+<img width="350" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/6e4b7226-77fa-4a78-b215-e3dffac7b28f"/> | <img width="350" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/87380a2c-ed4f-4b86-8980-0782ff957256"/>
