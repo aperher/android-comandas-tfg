@@ -2,7 +2,7 @@
 - [Descripción](#descripción)
 - [Objetivos](#objetivos)
 - [Arquitectura](#arquitectura)
-- [Librerías utilizadas](#librerias-utilizadas)
+- [Librerías utilizadas](#librerías-utilizadas)
 - [Demo](#demo)
 - [Usabilidad](#usabilidad)
 
