@@ -15,6 +15,8 @@ obtiene feedback en tiempo real.
   <img height="300" src="https://github.com/aperher/android-comandas-tfg/assets/100694428/67323e3d-ff4c-424b-9abd-b4e634eaec46)"/>
 </div>
 
+</br>Para el desarrollo de esta aplicación se ha diseñado e implementado una [API REST](https://github.com/aperher/backend-comandas-tfg).
+
 ## Objetivos
 - Desarrollar una aplicación Android que proporcione soporte a los camareros con la gestión de las comandas, con el objetivo de mejorar la eficiencia y precisión de la toma de pedidos.
 -	Diseñar una herramienta funcional que pueda ser implementada en cualquier tipo de restaurante, adaptándose a las necesidades y características específicas de cada establecimiento.
